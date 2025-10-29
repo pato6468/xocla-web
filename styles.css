@@ -35,7 +35,7 @@ header {
     right: 30px; 
     transform: translateY(-50%); 
     width: 120px; /* Tamaño */
-    height: 120px; /* Le damos la misma altura para asegurar la forma circular */
+    height: 120px; 
     border-radius: 50%; /* Es circular, ¡así que queda perfecto! */
     box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
     z-index: 10; 
