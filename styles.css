@@ -157,6 +157,11 @@ footer {
 .cempasuchil h3 { color: #f39c12; } /* Naranja para cempasúchil */
 .tomillo h3 { color: #27ae60; }    /* Verde para tomillo */
 .arnica h3 { color: #f1c40f; }     /* Amarillo para árnica */
+
+/* * ¡ERROR CORREGIDO! 
+ * Aquí había una '}' extra que sobraba y rompía todo el código siguiente. Ya la quité.
+ */
+
 /*
 =====================================================
   ESTILOS DEL NUEVO MENÚ DE NAVEGACIÓN
