@@ -7,40 +7,70 @@ body {
     line-height: 1.6;
 }
 
+/* * NUEVA CLASE: Para ocultar texto visualmente
+ * (Esta es la que hace desaparecer el H1)
+*/
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/*
+ * CAMBIO AQUÍ: Ajustado para centrar el logo
+*/
 header {
     background-color: #6a994e;
     color: white;
-    padding: 20px 0;
+    padding: 15px 0; /* Ajustamos el padding */
     text-align: center;
-    position: relative; /* CRUCIAL: Necesario para que el logo se posicione con 'absolute' */
+    position: relative;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    height: 120px; /* Le damos una altura fija al encabezado para que quepa el logo */
-    display: flex; /* Usamos flexbox para centrar el contenido */
+    min-height: 120px; /* Le damos una altura mínima */
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/*
+ * CAMBIO AQUÍ: Aseguramos que el contenedor centre el logo
+*/
 .header-content {
     max-width: 1200px;
     margin: 0 auto;
-    position: relative; /* Mantiene la referencia de posicionamiento */
+    position: relative;
     padding: 0 20px;
-    width: 100%; /* Ocupa todo el ancho disponible */
+    width: 100%;
+    /* Añadimos esto para asegurar que el logo se centre */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* AJUSTES PARA EL LOGO */
+/* * ¡¡CAMBIO MÁS IMPORTANTE!! 
+ * Quitamos todo el 'position: absolute' para que el logo
+ * se centre de forma natural.
+*/
 .logo {
-    position: absolute;
-    top: 50%; 
-    right: 30px; 
-    transform: translateY(-50%); 
-    width: 120px; /* Tamaño */
+    /* position: absolute; <-- QUITADO */
+    /* top: 50%;         <-- QUITADO */
+    /* right: 30px;      <-- QUITADO */
+    /* transform: translateY(-50%); <-- QUITADO */
+    /* z-index: 10;      <-- QUITADO */
+    
+    /* Solo dejamos el tamaño y la forma */
+    width: 120px; 
     height: 120px; 
-    border-radius: 50%; /* Es circular, ¡así que queda perfecto! */
+    border-radius: 50%;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
-    z-index: 10; 
 }
 
+/* Estas reglas ya no se ven, pero las dejamos por si se revierte el cambio */
 header h1 {
     margin: 0;
     font-size: 2.8em;
@@ -55,9 +85,9 @@ header p {
 }
 
 .content {
-    max-width: 1200px; /* Limita el ancho máximo del contenido */
-    margin: 0 auto; /* Centra el div en la página */
-    padding: 0 20px; /* Añade un poco de espacio a los lados */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 main {
@@ -76,12 +106,12 @@ section {
     text-align: center;
     padding: 40px;
     margin-top: 20px;
-    border-bottom: none; /* Quitamos el borde dashed si lo tenías */
+    border-bottom: none;
 }
 
 #presentacion h2 {
     font-size: 2.2em;
-    color: #4a753a; /* Un verde más oscuro */
+    color: #4a753a;
     margin-bottom: 15px;
 }
 
@@ -117,7 +147,7 @@ section {
 
 .producto h3 {
     font-size: 1.8em;
-    color: #d35400; /* Naranja para los títulos de producto */
+    color: #d35400;
     margin-bottom: 15px;
 }
 
@@ -134,7 +164,7 @@ section {
 }
 
 .producto ul li {
-    background-color: #e6ffe6; /* Fondo suave para los puntos */
+    background-color: #e6ffe6;
     margin: 5px 0;
     padding: 8px 15px;
     border-left: 3px solid #6a994e;
@@ -144,7 +174,7 @@ section {
 }
 
 footer {
-    background-color: #4a753a; /* Un verde oscuro para el footer */
+    background-color: #4a753a;
     color: white;
     text-align: center;
     padding: 20px 0;
@@ -153,14 +183,10 @@ footer {
     box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
 }
 
-/* Estilos específicos para cada producto (opcional, para iconos o colores) */
-.cempasuchil h3 { color: #f39c12; } /* Naranja para cempasúchil */
-.tomillo h3 { color: #27ae60; }    /* Verde para tomillo */
-.arnica h3 { color: #f1c40f; }     /* Amarillo para árnica */
-
-/* * ¡ERROR CORREGIDO! 
- * Aquí había una '}' extra que sobraba y rompía todo el código siguiente. Ya la quité.
- */
+/* Estilos específicos para cada producto */
+.cempasuchil h3 { color: #f39c12; }
+.tomillo h3 { color: #27ae60; }
+.arnica h3 { color: #f1c40f; }
 
 /*
 =====================================================
@@ -170,8 +196,8 @@ footer {
 
 /* --- El Botón de Hamburguesa --- */
 .menu-toggle {
-    display: none; /* Oculto por defecto en escritorio */
-    position: fixed; /* Se queda fijo en la pantalla */
+    display: none;
+    position: fixed;
     top: 25px;
     left: 20px;
     width: 35px;
@@ -179,9 +205,7 @@ footer {
     background: transparent;
     border: none;
     cursor: pointer;
-    z-index: 1001; /* Encima de todo */
-    
-    /* Las 3 rayitas (spans) */
+    z-index: 1001;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -192,12 +216,12 @@ footer {
     display: block;
     width: 100%;
     height: 4px;
-    background-color: #4a753a; /* Color verde oscuro */
+    background-color: #4a753a;
     border-radius: 2px;
     transition: all 0.3s ease-in-out;
 }
 
-/* Animación del botón a 'X' cuando está abierto */
+/* Animación del botón a 'X' */
 .menu-toggle.is-open span:nth-child(1) {
     transform: rotate(45deg) translate(8px, 8px);
 }
@@ -209,18 +233,16 @@ footer {
 }
 
 
-/* --- El Panel de Navegación (Menú) --- */
+/* --- El Panel de NaveGación (Menú) --- */
 .main-nav {
     position: fixed;
     top: 0;
     left: 0;
-    width: 280px; /* Ancho del menú */
-    height: 100vh; /* Alto total de la pantalla */
-    background-color: #4a753a; /* Fondo verde oscuro */
+    width: 280px;
+    height: 100vh;
+    background-color: #4a753a;
     z-index: 1000;
-    padding-top: 100px; /* Espacio para el botón de cerrar */
-    
-    /* Oculto por defecto */
+    padding-top: 100px;
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
     box-shadow: 5px 0 15px rgba(0,0,0,0.2);
@@ -259,17 +281,16 @@ footer {
 /* --- Estilos del Submenú --- */
 .submenu {
     margin-top: 10px;
-    padding-left: 20px !important; /* Más sangría */
+    padding-left: 20px !important;
 }
 
 .submenu a {
-    font-size: 0.9em !important; /* Letra más pequeña */
+    font-size: 0.9em !important;
     font-weight: normal;
     padding: 8px 0;
 }
 
 .submenu-parent > a {
-    /* Opcional: Añadir una flechita al que tiene submenú */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -291,52 +312,38 @@ footer {
 
     /* --- 1. Mostramos el botón de hamburguesa --- */
     .menu-toggle {
-        display: flex; /* Ahora se muestra */
+        display: flex;
     }
 
-    /* --- 2. Arreglamos el encabezado que se encimaba --- */
+    /* --- 2. Arreglamos el encabezado --- */
     header {
-        height: auto; /* Altura automática para que quepa todo */
+        height: auto;
         padding: 20px 0;
-        /* Hacemos que el botón de menú no choque con el título */
+        /* Hacemos que el botón de menú no choque con el logo */
         padding-top: 80px; 
     }
+    
+    /* El header-content ya centra el logo */
 
-    .header-content {
-        /* Centramos el contenido verticalmente */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 0 20px;
-    }
-
-    /* --- 3. Movemos el logo --- */
+    /* --- 3. Ajustamos el logo en móvil --- */
     .logo {
-        position: static; /* Quitamos el posicionamiento absoluto */
-        transform: none;  /* Quitamos la transformación */
-        
-        /* Lo hacemos más pequeño y le damos margen */
         width: 100px; 
         height: 100px;
-        margin-top: 20px; /* Lo separamos del título */
-        
-        /* Lo ponemos al final (opcional, puedes borrar 'order') */
-        order: 3; 
+        margin-top: 0; /* Ya no necesita margen superior */
     }
 
-    /* --- 4. Ajustamos los textos del encabezado --- */
+    /* --- 4. Las reglas de h1 y p ya no se ven --- */
+    /* (Las dejamos por si se revierten los cambios) */
     header h1 {
         font-size: 2.4em;
-        order: 1; /* El h1 va primero */
+        order: 1;
     }
 
     header p {
         font-size: 1em;
-        order: 2; /* El subtítulo va segundo */
+        order: 2;
     }
 
-    /* --- 5. Ajustamos el contenido principal --- */
-    /* Damos espacio para que el botón de menú no tape el contenido */
     .content {
         padding-top: 0;
     }
@@ -344,7 +351,7 @@ footer {
 
 @media (max-width: 480px) {
     header h1 {
-        font-size: 2.0em; /* Aún más pequeño en pantallas chicas */
+        font-size: 2.0em;
     }
 
     .logo {
