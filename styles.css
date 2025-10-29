@@ -27,7 +27,6 @@ header {
     position: relative;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     min-height: 120px;
-    /* Ajustamos para usar flexbox y centrar verticalmente */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,18 +38,19 @@ header {
     position: relative;
     padding: 0 20px;
     width: 100%;
-    
-    /* CAMBIO IMPORTANTE AQUÍ: Hacemos que el logo y el párrafo se apilen */
     display: flex;
     flex-direction: column; /* Apila los elementos verticalmente */
     justify-content: center;
     align-items: center; /* Centra horizontalmente */
 }
 
-/* AJUSTES PARA EL LOGO (Centrado) */
+/* * ============================================
+ * CAMBIO AQUÍ: TAMAÑO DE LOGO EN ESCRITORIO
+ * ============================================
+ */
 .logo {
-    width: 120px; 
-    height: 120px; 
+    width: 150px; /* ANTES: 120px */
+    height: 150px; /* ANTES: 120px */
     border-radius: 50%;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
     margin-bottom: 10px; /* Separación entre el logo y el lema */
@@ -66,10 +66,10 @@ header h1 {
 
 /* Estilos para el párrafo del lema */
 header p {
-    margin-top: 5px; /* Ajustamos si es necesario */
+    margin-top: 5px; 
     font-size: 1.1em;
     opacity: 0.9;
-    max-width: 80%; /* Para que no ocupe todo el ancho en pantallas grandes */
+    max-width: 80%; 
 }
 
 
@@ -311,12 +311,13 @@ footer {
         padding-top: 80px; /* Para que el botón de menú no choque */
     }
     
-    /* El header-content ya centra el logo y el p */
-
-    /* --- 3. Ajustamos el logo en móvil --- */
+    /* * ============================================
+     * CAMBIO AQUÍ: TAMAÑO DE LOGO EN TABLET
+     * ============================================
+     */
     .logo {
-        width: 100px; 
-        height: 100px;
+        width: 120px; /* ANTES: 100px */
+        height: 120px; /* ANTES: 100px */
         margin-top: 0; 
         margin-bottom: 5px; /* Un poco menos de espacio en móvil */
     }
@@ -336,9 +337,13 @@ footer {
         font-size: 0.8em; /* Aún más pequeño en pantallas chicas */
     }
 
+    /* * ============================================
+     * CAMBIO AQUÍ: TAMAÑO DE LOGO EN MÓVIL
+     * ============================================
+     */
     .logo {
-        width: 80px;
-        height: 80px;
+        width: 100px; /* ANTES: 80px */
+        height: 100px; /* ANTES: 80px */
     }
 
     #productos h2 {
