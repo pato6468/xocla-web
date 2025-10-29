@@ -1,0 +1,159 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4fce3; /* Un verde claro muy suave */
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #6a994e;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    position: relative; /* CRUCIAL: Necesario para que el logo se posicione con 'absolute' */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    height: 120px; /* Le damos una altura fija al encabezado para que quepa el logo */
+    display: flex; /* Usamos flexbox para centrar el contenido */
+    justify-content: center;
+    align-items: center;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative; /* Mantiene la referencia de posicionamiento */
+    padding: 0 20px;
+    width: 100%; /* Ocupa todo el ancho disponible */
+}
+
+/* AJUSTES PARA EL LOGO */
+.logo {
+    position: absolute;
+    top: 50%; 
+    right: 30px; 
+    transform: translateY(-50%); 
+    width: 120px; /* Tamaño */
+    height: 120px; /* Le damos la misma altura para asegurar la forma circular */
+    border-radius: 50%; /* Es circular, ¡así que queda perfecto! */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+    z-index: 10; 
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.8em;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+header p {
+    margin-top: 5px;
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+.content {
+    max-width: 1200px; /* Limita el ancho máximo del contenido */
+    margin: 0 auto; /* Centra el div en la página */
+    padding: 0 20px; /* Añade un poco de espacio a los lados */
+}
+
+main {
+    padding: 40px 0;
+}
+
+section {
+    background-color: white;
+    margin-bottom: 30px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+#presentacion {
+    text-align: center;
+    padding: 40px;
+    margin-top: 20px;
+    border-bottom: none; /* Quitamos el borde dashed si lo tenías */
+}
+
+#presentacion h2 {
+    font-size: 2.2em;
+    color: #4a753a; /* Un verde más oscuro */
+    margin-bottom: 15px;
+}
+
+#presentacion p {
+    font-size: 1.1em;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#productos h2 {
+    text-align: center;
+    font-size: 2.5em;
+    color: #4a753a;
+    margin-bottom: 40px;
+}
+
+.producto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.producto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.producto h3 {
+    font-size: 1.8em;
+    color: #d35400; /* Naranja para los títulos de producto */
+    margin-bottom: 15px;
+}
+
+.producto p {
+    font-size: 1em;
+    color: #555;
+    max-width: 600px;
+}
+
+.producto ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.producto ul li {
+    background-color: #e6ffe6; /* Fondo suave para los puntos */
+    margin: 5px 0;
+    padding: 8px 15px;
+    border-left: 3px solid #6a994e;
+    border-radius: 5px;
+    font-size: 0.95em;
+    color: #444;
+}
+
+footer {
+    background-color: #4a753a; /* Un verde oscuro para el footer */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    font-size: 0.9em;
+    box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
+}
+
+/* Estilos específicos para cada producto (opcional, para iconos o colores) */
+.cempasuchil h3 { color: #f39c12; } /* Naranja para cempasúchil */
+.tomillo h3 { color: #27ae60; }    /* Verde para tomillo */
+.arnica h3 { color: #f1c40f; }     /* Amarillo para árnica */
