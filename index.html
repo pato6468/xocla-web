@@ -7,13 +7,34 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <button class="menu-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#presentacion">¿Quiénes Somos?</a></li>
+            <li><a href="#productos">Productos</a></li>
+            <li class="submenu-parent">
+                <a href="#fichas">Fichas Técnicas</a>
+                <ul class="submenu">
+                    <li><a href="#ficha-cempasuchil">Ficha Técnica Cempasúchil</a></li>
+                    <li><a href="#ficha-tomillo">Ficha Técnica Tomillo</a></li>
+                    <li><a href="#ficha-arnica">Ficha Técnica Árnica</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
     <header>
         <div class="header-content">
             <h1>🌿 XOCLA 🌼</h1>
             <p>Rescatando La Tradición Herbolaria Mexicana</p>
             <img src="logo.jpeg" alt="Logo de XOCLA" class="logo">
-        </div>
-    </header>
+        </div> </header>
+
     <div class="content">
         <main>
             <section id="presentacion">
@@ -58,5 +79,25 @@
         <p>&copy; 2025 Proyecto Escolar: Herbolaria Mexicana. Todos los derechos reservados.</p>
     </footer>
 
-</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('.main-nav');
+
+            // Abrir/cerrar menú con el botón
+            menuToggle.addEventListener('click', () => {
+                nav.classList.toggle('is-open');
+                menuToggle.classList.toggle('is-open');
+            });
+
+            // Opcional: Cerrar el menú al hacer clic en un enlace
+            nav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    nav.classList.remove('is-open');
+                    menuToggle.classList.remove('is-open');
+                });
+            });
+        });
+    </script>
+    </body>
 </html>

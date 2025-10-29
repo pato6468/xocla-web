@@ -157,3 +157,197 @@ footer {
 .cempasuchil h3 { color: #f39c12; } /* Naranja para cempasúchil */
 .tomillo h3 { color: #27ae60; }    /* Verde para tomillo */
 .arnica h3 { color: #f1c40f; }     /* Amarillo para árnica */
+/*
+=====================================================
+  ESTILOS DEL NUEVO MENÚ DE NAVEGACIÓN
+=====================================================
+*/
+
+/* --- El Botón de Hamburguesa --- */
+.menu-toggle {
+    display: none; /* Oculto por defecto en escritorio */
+    position: fixed; /* Se queda fijo en la pantalla */
+    top: 25px;
+    left: 20px;
+    width: 35px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001; /* Encima de todo */
+    
+    /* Las 3 rayitas (spans) */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 4px;
+    background-color: #4a753a; /* Color verde oscuro */
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Animación del botón a 'X' cuando está abierto */
+.menu-toggle.is-open span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+.menu-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+}
+.menu-toggle.is-open span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+
+/* --- El Panel de Navegación (Menú) --- */
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px; /* Ancho del menú */
+    height: 100vh; /* Alto total de la pantalla */
+    background-color: #4a753a; /* Fondo verde oscuro */
+    z-index: 1000;
+    padding-top: 100px; /* Espacio para el botón de cerrar */
+    
+    /* Oculto por defecto */
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+}
+
+/* Estado abierto del menú */
+.main-nav.is-open {
+    transform: translateX(0);
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0 30px;
+    margin: 0;
+}
+
+.main-nav li {
+    margin-bottom: 10px;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.3em;
+    font-weight: bold;
+    display: block;
+    padding: 10px 0;
+    transition: background-color 0.2s;
+    border-radius: 5px;
+}
+
+.main-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Estilos del Submenú --- */
+.submenu {
+    margin-top: 10px;
+    padding-left: 20px !important; /* Más sangría */
+}
+
+.submenu a {
+    font-size: 0.9em !important; /* Letra más pequeña */
+    font-weight: normal;
+    padding: 8px 0;
+}
+
+.submenu-parent > a {
+    /* Opcional: Añadir una flechita al que tiene submenú */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.submenu-parent > a::after {
+    content: '▼';
+    font-size: 0.7em;
+    margin-right: 10px;
+}
+
+
+/*
+=====================================================
+  FIX: ARREGLO PARA MÓVILES (MEDIA QUERIES)
+=====================================================
+*/
+@media (max-width: 768px) {
+
+    /* --- 1. Mostramos el botón de hamburguesa --- */
+    .menu-toggle {
+        display: flex; /* Ahora se muestra */
+    }
+
+    /* --- 2. Arreglamos el encabezado que se encimaba --- */
+    header {
+        height: auto; /* Altura automática para que quepa todo */
+        padding: 20px 0;
+        /* Hacemos que el botón de menú no choque con el título */
+        padding-top: 80px; 
+    }
+
+    .header-content {
+        /* Centramos el contenido verticalmente */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    /* --- 3. Movemos el logo --- */
+    .logo {
+        position: static; /* Quitamos el posicionamiento absoluto */
+        transform: none;  /* Quitamos la transformación */
+        
+        /* Lo hacemos más pequeño y le damos margen */
+        width: 100px; 
+        height: 100px;
+        margin-top: 20px; /* Lo separamos del título */
+        
+        /* Lo ponemos al final (opcional, puedes borrar 'order') */
+        order: 3; 
+    }
+
+    /* --- 4. Ajustamos los textos del encabezado --- */
+    header h1 {
+        font-size: 2.4em;
+        order: 1; /* El h1 va primero */
+    }
+
+    header p {
+        font-size: 1em;
+        order: 2; /* El subtítulo va segundo */
+    }
+
+    /* --- 5. Ajustamos el contenido principal --- */
+    /* Damos espacio para que el botón de menú no tape el contenido */
+    .content {
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2.0em; /* Aún más pequeño en pantallas chicas */
+    }
+
+    .logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    #productos h2 {
+        font-size: 2.0em;
+    }
+}
