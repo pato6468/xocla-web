@@ -49,8 +49,8 @@ header {
  * ============================================
  */
 .logo {
-    width: 150px; /* ANTES: 120px */
-    height: 150px; /* ANTES: 120px */
+    width: 180px; /* ANTES: 150px */
+    height: 180px; /* ANTES: 150px */
     border-radius: 50%;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
     margin-bottom: 10px; /* Separación entre el logo y el lema */
@@ -222,7 +222,7 @@ footer {
 }
 
 
-/* --- El Panel de Navegación (Menú) --- */
+/* --- El Panel de NaveGación (Menú) --- */
 .main-nav {
     position: fixed;
     top: 0;
@@ -316,8 +316,8 @@ footer {
      * ============================================
      */
     .logo {
-        width: 120px; /* ANTES: 100px */
-        height: 120px; /* ANTES: 100px */
+        width: 140px; /* ANTES: 120px */
+        height: 140px; /* ANTES: 120px */
         margin-top: 0; 
         margin-bottom: 5px; /* Un poco menos de espacio en móvil */
     }
@@ -342,8 +342,8 @@ footer {
      * ============================================
      */
     .logo {
-        width: 100px; /* ANTES: 80px */
-        height: 100px; /* ANTES: 80px */
+        width: 110px; /* ANTES: 100px */
+        height: 110px; /* ANTES: 100px */
     }
 
     #productos h2 {
