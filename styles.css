@@ -7,9 +7,7 @@ body {
     line-height: 1.6;
 }
 
-/* * NUEVA CLASE: Para ocultar texto visualmente
- * (Esta es la que hace desaparecer el H1)
-*/
+/* Para ocultar texto visualmente (usado para H1) */
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -21,56 +19,44 @@ body {
     border: 0;
 }
 
-/*
- * CAMBIO AQUÍ: Ajustado para centrar el logo
-*/
 header {
     background-color: #6a994e;
     color: white;
-    padding: 15px 0; /* Ajustamos el padding */
+    padding: 15px 0;
     text-align: center;
     position: relative;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    min-height: 120px; /* Le damos una altura mínima */
+    min-height: 120px;
+    /* Ajustamos para usar flexbox y centrar verticalmente */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/*
- * CAMBIO AQUÍ: Aseguramos que el contenedor centre el logo
-*/
 .header-content {
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
     padding: 0 20px;
     width: 100%;
-    /* Añadimos esto para asegurar que el logo se centre */
+    
+    /* CAMBIO IMPORTANTE AQUÍ: Hacemos que el logo y el párrafo se apilen */
     display: flex;
+    flex-direction: column; /* Apila los elementos verticalmente */
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Centra horizontalmente */
 }
 
-/* * ¡¡CAMBIO MÁS IMPORTANTE!! 
- * Quitamos todo el 'position: absolute' para que el logo
- * se centre de forma natural.
-*/
+/* AJUSTES PARA EL LOGO (Centrado) */
 .logo {
-    /* position: absolute; <-- QUITADO */
-    /* top: 50%;         <-- QUITADO */
-    /* right: 30px;      <-- QUITADO */
-    /* transform: translateY(-50%); <-- QUITADO */
-    /* z-index: 10;      <-- QUITADO */
-    
-    /* Solo dejamos el tamaño y la forma */
     width: 120px; 
     height: 120px; 
     border-radius: 50%;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+    margin-bottom: 10px; /* Separación entre el logo y el lema */
 }
 
-/* Estas reglas ya no se ven, pero las dejamos por si se revierte el cambio */
+/* El h1 sigue oculto */
 header h1 {
     margin: 0;
     font-size: 2.8em;
@@ -78,11 +64,14 @@ header h1 {
     letter-spacing: 1px;
 }
 
+/* Estilos para el párrafo del lema */
 header p {
-    margin-top: 5px;
+    margin-top: 5px; /* Ajustamos si es necesario */
     font-size: 1.1em;
     opacity: 0.9;
+    max-width: 80%; /* Para que no ocupe todo el ancho en pantallas grandes */
 }
+
 
 .content {
     max-width: 1200px;
@@ -233,7 +222,7 @@ footer {
 }
 
 
-/* --- El Panel de NaveGación (Menú) --- */
+/* --- El Panel de Navegación (Menú) --- */
 .main-nav {
     position: fixed;
     top: 0;
@@ -319,29 +308,22 @@ footer {
     header {
         height: auto;
         padding: 20px 0;
-        /* Hacemos que el botón de menú no choque con el logo */
-        padding-top: 80px; 
+        padding-top: 80px; /* Para que el botón de menú no choque */
     }
     
-    /* El header-content ya centra el logo */
+    /* El header-content ya centra el logo y el p */
 
     /* --- 3. Ajustamos el logo en móvil --- */
     .logo {
         width: 100px; 
         height: 100px;
-        margin-top: 0; /* Ya no necesita margen superior */
+        margin-top: 0; 
+        margin-bottom: 5px; /* Un poco menos de espacio en móvil */
     }
 
-    /* --- 4. Las reglas de h1 y p ya no se ven --- */
-    /* (Las dejamos por si se revierten los cambios) */
-    header h1 {
-        font-size: 2.4em;
-        order: 1;
-    }
-
+    /* --- 4. El párrafo del lema en móvil --- */
     header p {
-        font-size: 1em;
-        order: 2;
+        font-size: 0.9em; /* Un poco más pequeño en móvil */
     }
 
     .content {
@@ -350,8 +332,8 @@ footer {
 }
 
 @media (max-width: 480px) {
-    header h1 {
-        font-size: 2.0em;
+    header p {
+        font-size: 0.8em; /* Aún más pequeño en pantallas chicas */
     }
 
     .logo {
