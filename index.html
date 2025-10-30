@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XOCTLA - Herbolaria Tradicional Mexicana</title>
+    
+    <meta name="google-site-verification" content="EqF-lN907LJ2eiSVnIGIih9EcOzTIqytxvuHms1lU8w" />
     <link rel="stylesheet" href="styles.css?v=2.2"> 
 </head>
 <body>
@@ -85,7 +87,7 @@
                 </div> 
             </section>
 
-            </main>
+        </main>
     </div>
 
     <footer>
@@ -126,7 +128,8 @@
                 const clickedInsideNav = nav.contains(e.target);
                 const clickedOnToggle = menuToggle.contains(e.target);
                 if (isMenuOpen && !clickedInsideNav && !clickedOnToggle) {
-                    nav.classList.remove('is-open');
+                    // CORRECCIÓN: 'is-an' cambiado a 'is-open'
+                    nav.classList.remove('is-open'); 
                     menuToggle.classList.remove('is-open');
                 }
             });
