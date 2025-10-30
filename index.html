@@ -92,28 +92,39 @@
                 menuToggle.classList.toggle('is-open');
             });
 
-            // Opcional: Cerrar el menú al hacer clic en un enlace (que no sea de submenú)
+            // Cerrar el menú al hacer clic en un enlace (que no sea de submenú)
             nav.querySelectorAll('a:not(.submenu-parent > a)').forEach(link => {
                 link.addEventListener('click', () => {
                     nav.classList.remove('is-open');
                     menuToggle.classList.remove('is-open');
                 });
             });
-
-            /* * =============================================================
-             * NUEVO CÓDIGO: Para hacer el submenú desplegable (acordeón)
-             * =============================================================
-             */
-            const submenuParents = document.querySelectorAll('.submenu-parent > a');
             
+            // Para el submenú desplegable
+            const submenuParents = document.querySelectorAll('.submenu-parent > a');
             submenuParents.forEach(parent => {
                 parent.addEventListener('click', (e) => {
-                    // Previene que la página salte al ancla (#fichas)
                     e.preventDefault(); 
-                    
-                    // Añade o quita la clase 'is-open' al <li> padre
                     parent.parentElement.classList.toggle('is-open');
                 });
+            });
+
+            /* * =============================================================
+             * NUEVO CÓDIGO: Para cerrar el menú al hacer clic AFUERA
+             * =============================================================
+             */
+            document.addEventListener('click', (e) => {
+                const isMenuOpen = nav.classList.contains('is-open');
+                
+                // Comprueba si el clic fue en el menú o en el botón que lo abre
+                const clickedInsideNav = nav.contains(e.target);
+                const clickedOnToggle = menuToggle.contains(e.target);
+
+                // Si el menú está abierto Y el clic NO fue dentro del menú NI en el botón
+                if (isMenuOpen && !clickedInsideNav && !clickedOnToggle) {
+                    nav.classList.remove('is-open');
+                    menuToggle.classList.remove('is-open');
+                }
             });
             /* ============================================================= */
 
