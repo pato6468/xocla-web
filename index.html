@@ -7,7 +7,7 @@
     
     <meta name="google-site-verification" content="EqF-lN907LJ2eiSVnIGIih9EcOzTIqytxvuHms1lU8w" />
     
-    <link rel="stylesheet" href="styles.css?v=2.5"> 
+    <link rel="stylesheet" href="styles.css?v=2.6"> 
 </head>
 <body>
 
@@ -123,7 +123,7 @@
         <h2>🛒 Carrito de Compras</h2>
         <div id="cart-items-container">
             <p id="cart-empty-msg">Tu carrito está vacío.</p>
-            </div>
+        </div>
         <div id="cart-total">
             <h3>Total: $<span id="cart-total-price">0.00</span> MXN</h3>
             <button id="checkout-btn" class="cta-button">Proceder al Pago</button>
@@ -133,8 +133,9 @@
     <div id="payment-modal" class="modal">
         <div class="modal-content">
             <button id="modal-close-btn" class="modal-close-btn" aria-label="Cerrar pago">&times;</button>
-            <h2>💳 Realizar Pago (Simulación)</h2>
-            <p>Este es un formulario de simulación. No se realizará ningún cobro real.</p>
+            <h2>💳 Realizar Pago</h2>
+            <p>Por favor, ingrese sus datos para completar la compra.</p>
+            
             <form id="payment-form">
                 <div class="form-group">
                     <label for="name">Nombre Completo:</label>
@@ -145,10 +146,11 @@
                     <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="card">Número de Tarjeta (ficticio):</label>
-                    <input type="text" id="card" name="card" placeholder="1234 5678 9012 3456" required>
+                    <label for="card">Número de Tarjeta:</label>
+                    <input type="text" id="card" name="card" placeholder="1234 5678 9012 3456" 
+                           inputmode="numeric" maxlength="19" required>
                 </div>
-                <button type="submit" class="cta-button">Pagar (Simular)</button>
+                <button type="submit" class="cta-button">Pagar</button>
             </form>
         </div>
     </div>
@@ -159,7 +161,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- CÓDIGO DEL MENÚ (Existente) ---
+            // --- CÓDIGO DEL MENÚ ---
             const menuToggle = document.querySelector('.menu-toggle');
             const nav = document.querySelector('.main-nav');
 
@@ -194,12 +196,11 @@
             });
 
             /* ==============================================
-             NUEVO SCRIPT: LÓGICA DEL CARRITO (MODIFICADA)
+             SCRIPT: LÓGICA DEL CARRITO
             ============================================== 
             */
             let cart = [];
             
-            // Referencias a todos los nuevos elementos
             const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
             const cartToggleBtn = document.getElementById('cart-toggle-btn');
             const cartCounter = document.getElementById('cart-counter');
@@ -260,11 +261,8 @@
                         nombre: productCard.dataset.nombre,
                         precio: parseFloat(productCard.dataset.precio)
                     };
-                    
                     cart.push(product);
                     updateCartUI();
-                    
-                    // Abrir el carrito automáticamente al añadir
                     openCart(); 
                 });
             });
@@ -274,10 +272,10 @@
                 cartItemsContainer.innerHTML = ''; 
                 
                 if (cart.length === 0) {
-                    cartItemsContainer.appendChild(cartEmptyMsg.cloneNode(true)); // Usamos clon para evitar problemas
+                    cartItemsContainer.appendChild(cartEmptyMsg.cloneNode(true));
                     cartTotalElement.textContent = '0.00';
                     cartCounter.textContent = '0';
-                    cartCounter.style.display = 'none'; // Ocultar contador
+                    cartCounter.style.display = 'none';
                 } else {
                     let total = 0;
                     cart.forEach(item => {
@@ -290,20 +288,40 @@
                     
                     cartTotalElement.textContent = total.toFixed(2);
                     cartCounter.textContent = cart.length;
-                    cartCounter.style.display = 'block'; // Mostrar contador
+                    cartCounter.style.display = 'block';
                 }
             }
 
-            // 3. Simular el pago
+            /* ==============================================
+             CAMBIO AQUÍ: Formulario de Pago con Validación
+            ============================================== 
+            */
             paymentForm.addEventListener('submit', (e) => {
                 e.preventDefault(); 
                 
-                alert('¡Simulación de pago exitosa!\nGracias por tu compra.');
+                if (cart.length === 0) {
+                    alert('Tu carrito está vacío. Agrega productos antes de pagar.');
+                    return;
+                }
+
+                // NUEVA VALIDACIÓN: Verificar tarjeta de 16 dígitos
+                const cardInput = document.getElementById('card');
+                const cardNumber = cardInput.value.replace(/\s/g, ''); // Quita espacios en blanco
+                
+                if (cardNumber.length !== 16 || isNaN(cardNumber)) {
+                    alert('Por favor, ingrese un número de tarjeta válido de 16 dígitos.');
+                    return; // Detiene la función si no es válido
+                }
+
+                // Si la validación pasa, procede
+                
+                // CAMBIO: "Simulación de" eliminado
+                alert('¡Pago exitoso!\nGracias por tu compra.');
                 
                 cart = [];
                 updateCartUI();
                 paymentForm.reset(); 
-                closePaymentModal(); // Cerrar el modal de pago
+                closePaymentModal(); 
                 window.scrollTo(0, 0); 
             });
 
