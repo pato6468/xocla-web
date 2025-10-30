@@ -148,7 +148,7 @@
                 <div class="form-group">
                     <label for="card">Número de Tarjeta:</label>
                     <input type="text" id="card" name="card" placeholder="1234 5678 9012 3456" 
-                           inputmode="numeric" maxlength="19" required>
+                           inputmode="numeric" maxlength="19" pattern="[0-9\\s]*" required>
                     <p id="card-error" class="error-message">Por favor, ingrese un número de tarjeta válido de 16 dígitos.</p>
                 </div>
                 <button type="submit" class="cta-button">Pagar</button>
@@ -290,10 +290,7 @@
                 }
             }
 
-            /* ==============================================
-             CAMBIO: Formulario de Pago con Validación Interna
-            ============================================== 
-            */
+            // 3. Formulario de Pago con Validación
             paymentForm.addEventListener('submit', (e) => {
                 e.preventDefault(); 
                 
@@ -302,22 +299,21 @@
                     return;
                 }
 
-                // --- NUEVA VALIDACIÓN ---
+                // --- VALIDACIÓN ---
                 const cardInput = document.getElementById('card');
-                const cardError = document.getElementById('card-error'); // 1. Obtener el párrafo de error
+                const cardError = document.getElementById('card-error'); 
                 const cardNumber = cardInput.value.replace(/\s/g, ''); 
                 
-                // 2. Ocultar el error al inicio de cada intento
                 cardError.style.display = 'none'; 
 
+                // La validación `isNaN(cardNumber)` ya comprueba que solo sean números.
                 if (cardNumber.length !== 16 || isNaN(cardNumber)) {
-                    // 3. Mostrar el párrafo de error en lugar del alert
                     cardError.style.display = 'block'; 
-                    return; // Detener la función
+                    return; 
                 }
                 // --- FIN DE VALIDACIÓN ---
 
-                // Si la validación pasa, procede:
+                // Si la validación pasa:
                 alert('¡Pago exitoso!\nGracias por tu compra.');
                 
                 cart = [];
