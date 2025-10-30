@@ -6,7 +6,8 @@
     <title>XOCTLA - Herbolaria Tradicional Mexicana</title>
     
     <meta name="google-site-verification" content="EqF-lN907LJ2eiSVnIGIih9EcOzTIqytxvuHms1lU8w" />
-    <link rel="stylesheet" href="styles.css?v=2.2"> 
+    
+    <link rel="stylesheet" href="styles.css?v=2.3"> 
 </head>
 <body>
 
@@ -28,6 +29,7 @@
                     <li><a href="Ficha tecnica Arnica.pdf" target="_blank">Ficha Técnica Árnica</a></li>
                 </ul>
             </li>
+            <li><a href="#contacto">Contacto</a></li>
         </ul>
     </nav>
 
@@ -87,7 +89,12 @@
                 </div> 
             </section>
 
-        </main>
+            <section id="contacto">
+                <h2>Contacto</h2>
+                <p>¿Tienes preguntas sobre nuestros productos o el proyecto? Escríbenos.</p>
+                <a href="mailto:xoctla.info@gmail.com" class="cta-button">Enviar un Correo</a>
+            </section>
+            </main>
     </div>
 
     <footer>
@@ -128,7 +135,6 @@
                 const clickedInsideNav = nav.contains(e.target);
                 const clickedOnToggle = menuToggle.contains(e.target);
                 if (isMenuOpen && !clickedInsideNav && !clickedOnToggle) {
-                    // CORRECCIÓN: 'is-an' cambiado a 'is-open'
                     nav.classList.remove('is-open'); 
                     menuToggle.classList.remove('is-open');
                 }
