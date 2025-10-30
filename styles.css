@@ -105,7 +105,7 @@ section {
 
 /*
  * ============================================
- * SECCIÓN DE PRODUCTOS CON IMÁGENES
+ * SECCIÓN DE PRODUCTOS CON NUEVO ORDEN
  * ============================================
  */
 
@@ -127,22 +127,17 @@ section {
 .producto {
     display: flex;
     flex-direction: column;
-    /* align-items: center; <-- Lo quitamos para que el texto se alinee a la izquierda */
-    text-align: left; /* <-- El texto ahora se alinea a la izquierda */
-    
+    text-align: left; 
     margin-bottom: 0; 
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    
     flex-basis: 300px; 
     flex-grow: 1;      
     max-width: 400px;  
     background-color: #fff;
-    
-    /* CAMBIO: Quitamos el padding general y lo manejaremos por partes */
     padding: 0; 
-    overflow: hidden; /* Para que la imagen se ajuste a los bordes redondeados */
+    overflow: hidden; /* Mantiene los bordes redondeados para la imagen */
 }
 
 .producto:hover {
@@ -150,39 +145,39 @@ section {
     box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
-/* NUEVA REGLA: Estilos para la imagen del producto */
-.product-image {
-    width: 100%;
-    height: 200px; /* Le damos una altura fija */
-    object-fit: cover; /* Esto asegura que la imagen cubra el espacio sin deformarse */
-}
-
-/* CAMBIO: El título y el párrafo ahora tienen su propio padding */
+/* CAMBIO: El título ahora tiene padding superior */
 .producto h3 {
     font-size: 1.8em;
-    margin-bottom: 15px;
-    padding: 0 25px; /* Añadimos padding */
-    margin-top: 20px; /* Espacio sobre el título */
+    padding: 25px 25px 0 25px; /* Padding arriba, izq. y der. */
+    margin-top: 0;
+    margin-bottom: 15px; /* Espacio entre título e imagen */
 }
 .cempasuchil h3 { color: #f39c12; }
 .tomillo h3 { color: #27ae60; }
 .arnica h3 { color: #f1c40f; }
 
+/* REGLA MODIFICADA: La imagen ya no necesita márgenes */
+.product-image {
+    width: 100%;
+    height: 200px; 
+    object-fit: cover; 
+}
+
+/* CAMBIO: El párrafo ahora necesita un margin-top */
 .producto p {
     font-size: 1em;
     color: #555;
     max-width: 600px;
-    padding: 0 25px; /* Añadimos padding */
+    padding: 0 25px;
+    margin-top: 20px; /* Espacio entre imagen y párrafo */
 }
 
-/* REGLA MODIFICADA: Lista de Usos */
+/* REGLA MODIFICADA: Lista de Usos (se mantiene igual) */
 .producto ul {
     list-style: none;
-    width: auto; /* Dejamos que se ajuste */
-    margin-top: auto; /* Empuja esta lista al fondo de la tarjeta */
+    width: auto; 
+    margin-top: auto; /* Empuja esta lista al fondo */
     padding-top: 20px; 
-    
-    /* CAMBIO: El padding y el margen ahora están aquí */
     padding-left: 25px;
     padding-right: 25px;
     padding-bottom: 25px;
