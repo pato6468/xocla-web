@@ -106,7 +106,7 @@ section {
 
 /*
  * ============================================
- * SECCIÓN DE PRODUCTOS (MODIFICADA)
+ * SECCIÓN DE PRODUCTOS
  * ============================================
  */
 
@@ -221,10 +221,9 @@ section {
     background-color: #4a753a;
 }
 
-
 /*
  * ============================================
- * SECCIÓN CONTACTO (Existente)
+ * SECCIÓN CONTACTO
  * ============================================
  */
 #contacto {
@@ -411,7 +410,7 @@ section {
     align-items: center;
     justify-content: center;
     line-height: 1;
-    display: none; /* Oculto por defecto */
+    display: none; 
 }
 
 /* --- Sidebar del Carrito --- */
@@ -488,7 +487,7 @@ section {
 
 /* --- Modal de Pago --- */
 .modal {
-    display: none; /* Oculto por defecto */
+    display: none; 
     position: fixed;
     z-index: 1003;
     left: 0;
@@ -499,8 +498,6 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    /* Estado inicial para animación */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.2s ease, visibility 0.2s;
@@ -539,7 +536,6 @@ section {
 .modal-content p {
     text-align: center;
     margin-bottom: 20px;
-    font-style: italic;
     color: #555;
 }
 
@@ -580,6 +576,19 @@ section {
     font-size: 1em;
     box-sizing: border-box;
 }
+
+/* * ============================================
+ * NUEVO: Estilo del Mensaje de Error
+ * ============================================
+ */
+.error-message {
+    display: none; /* Oculto por defecto */
+    color: #c0392b; /* Rojo de error */
+    font-size: 0.9em;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
 #payment-form .cta-button {
     width: 100%;
     border: none;
@@ -630,6 +639,6 @@ section {
         font-size: 2.0em;
     }
     .cart-sidebar {
-        width: 95%; /* Ocupa casi toda la pantalla */
+        width: 95%; 
     }
 }

@@ -7,7 +7,7 @@
     
     <meta name="google-site-verification" content="EqF-lN907LJ2eiSVnIGIih9EcOzTIqytxvuHms1lU8w" />
     
-    <link rel="stylesheet" href="styles.css?v=2.6"> 
+    <link rel="stylesheet" href="styles.css?v=2.7"> 
 </head>
 <body>
 
@@ -149,6 +149,7 @@
                     <label for="card">Número de Tarjeta:</label>
                     <input type="text" id="card" name="card" placeholder="1234 5678 9012 3456" 
                            inputmode="numeric" maxlength="19" required>
+                    <p id="card-error" class="error-message">Por favor, ingrese un número de tarjeta válido de 16 dígitos.</p>
                 </div>
                 <button type="submit" class="cta-button">Pagar</button>
             </form>
@@ -162,21 +163,19 @@
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- CÓDIGO DEL MENÚ ---
+            // (Esta parte no ha cambiado)
             const menuToggle = document.querySelector('.menu-toggle');
             const nav = document.querySelector('.main-nav');
-
             menuToggle.addEventListener('click', () => {
                 nav.classList.toggle('is-open');
                 menuToggle.classList.toggle('is-open');
             });
-
             nav.querySelectorAll('a:not(.submenu-parent > a)').forEach(link => {
                 link.addEventListener('click', () => {
                     nav.classList.remove('is-open');
                     menuToggle.classList.remove('is-open');
                 });
             });
-            
             const submenuParents = document.querySelectorAll('.submenu-parent > a');
             submenuParents.forEach(parent => {
                 parent.addEventListener('click', (e) => {
@@ -184,7 +183,6 @@
                     parent.parentElement.classList.toggle('is-open');
                 });
             });
-
             document.addEventListener('click', (e) => {
                 const isMenuOpen = nav.classList.contains('is-open');
                 const clickedInsideNav = nav.contains(e.target);
@@ -293,7 +291,7 @@
             }
 
             /* ==============================================
-             CAMBIO AQUÍ: Formulario de Pago con Validación
+             CAMBIO: Formulario de Pago con Validación Interna
             ============================================== 
             */
             paymentForm.addEventListener('submit', (e) => {
@@ -304,18 +302,22 @@
                     return;
                 }
 
-                // NUEVA VALIDACIÓN: Verificar tarjeta de 16 dígitos
+                // --- NUEVA VALIDACIÓN ---
                 const cardInput = document.getElementById('card');
-                const cardNumber = cardInput.value.replace(/\s/g, ''); // Quita espacios en blanco
+                const cardError = document.getElementById('card-error'); // 1. Obtener el párrafo de error
+                const cardNumber = cardInput.value.replace(/\s/g, ''); 
                 
-                if (cardNumber.length !== 16 || isNaN(cardNumber)) {
-                    alert('Por favor, ingrese un número de tarjeta válido de 16 dígitos.');
-                    return; // Detiene la función si no es válido
-                }
+                // 2. Ocultar el error al inicio de cada intento
+                cardError.style.display = 'none'; 
 
-                // Si la validación pasa, procede
-                
-                // CAMBIO: "Simulación de" eliminado
+                if (cardNumber.length !== 16 || isNaN(cardNumber)) {
+                    // 3. Mostrar el párrafo de error en lugar del alert
+                    cardError.style.display = 'block'; 
+                    return; // Detener la función
+                }
+                // --- FIN DE VALIDACIÓN ---
+
+                // Si la validación pasa, procede:
                 alert('¡Pago exitoso!\nGracias por tu compra.');
                 
                 cart = [];
