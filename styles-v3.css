@@ -661,3 +661,6 @@ section {
         width: 95%;
     }
 }
+#card-error {
+    color: red !important;
+}
