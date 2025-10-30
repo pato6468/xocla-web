@@ -82,6 +82,8 @@ section {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    /* Clave para que el scroll del menú no quede tapado */
+    scroll-margin-top: 100px;
 }
 
 #presentacion {
@@ -105,7 +107,7 @@ section {
 
 /*
  * ============================================
- * SECCIÓN DE PRODUCTOS
+ * SECCIÓN DE PRODUCTOS (MODIFICADA)
  * ============================================
  */
 
@@ -160,12 +162,27 @@ section {
     object-fit: cover; 
 }
 
+/* NUEVO: Wrapper para empujar el botón al fondo */
+.product-info-wrapper {
+    padding: 0 25px;
+    margin-top: 20px;
+    flex-grow: 1; /* Esto es clave, hace que este div crezca y empuje el botón */
+}
+
+/* NUEVO: Estilo del Precio */
+.product-price {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 10px 0;
+}
+
 .producto p {
     font-size: 1em;
     color: #555;
     max-width: 600px;
-    padding: 0 25px;
-    margin-top: 20px; 
+    padding: 0;
+    margin: 0;
 }
 
 .producto ul {
@@ -173,8 +190,8 @@ section {
     width: auto; 
     margin-top: auto; 
     padding-top: 20px; 
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 0;
+    padding-right: 0;
     padding-bottom: 25px;
 }
 
@@ -188,30 +205,138 @@ section {
     color: #444;
 }
 
+/* NUEVO: Estilo del Botón de Carrito */
+.add-to-cart-btn {
+    display: block;
+    background-color: #6a994e;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px; /* Espacio entre el contenido y el botón */
+    transition: background-color 0.2s;
+}
+.add-to-cart-btn:hover {
+    background-color: #4a753a;
+}
+
+
 /* * ============================================
- * NUEVA SECCIÓN: CONTACTO
+ * NUEVA SECCIÓN: CARRITO DE COMPRAS
+ * ============================================
+ */
+#carrito {
+    background-color: #fdfdfd;
+}
+#carrito h2 {
+    font-size: 2.5em;
+    color: #4a753a;
+    margin-bottom: 30px;
+    text-align: center;
+}
+#cart-items-container {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 50px;
+    margin-bottom: 20px;
+}
+#cart-empty-msg {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+}
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #ddd;
+}
+.cart-item span:first-child {
+    font-weight: bold;
+}
+.cart-item:last-child {
+    border-bottom: none;
+}
+#cart-total {
+    text-align: right;
+}
+#cart-total h3 {
+    font-size: 1.8em;
+    color: #333;
+}
+#cart-total .cta-button {
+    margin-top: 10px;
+}
+
+/* * ============================================
+ * NUEVA SECCIÓN: PAGO
+ * ============================================
+ */
+#pago {
+    background-color: #f4fce3;
+}
+#pago h2 {
+    font-size: 2.5em;
+    color: #4a753a;
+    margin-bottom: 30px;
+    text-align: center;
+}
+#payment-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #444;
+}
+.form-group input[type="text"],
+.form-group input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Asegura que el padding no rompa el ancho */
+}
+#payment-form .cta-button {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+
+/*
+ * ============================================
+ * SECCIÓN CONTACTO (Existente)
  * ============================================
  */
 #contacto {
     text-align: center;
-    background-color: #f4fce3; /* Fondo verde suave */
+    background-color: #f4fce3;
     border-top: 3px solid #6a994e;
     padding: 40px 20px;
 }
-
 #contacto h2 {
     font-size: 2.5em;
     color: #4a753a;
     margin-top: 0;
     margin-bottom: 15px;
 }
-
 #contacto p {
     font-size: 1.1em;
     margin-bottom: 25px;
 }
-
-/* Estilo para el botón de correo */
 .cta-button {
     display: inline-block;
     background-color: #4a753a;
@@ -223,18 +348,12 @@ section {
     border-radius: 5px;
     transition: background-color 0.2s ease-in-out, transform 0.2s;
 }
-
 .cta-button:hover {
-    background-color: #385c2c; /* Un verde más oscuro al pasar el mouse */
+    background-color: #385c2c;
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-
-/* ============================================
- * FIN DE SECCIÓN CONTACTO
- * ============================================
- */
 
 footer {
     background-color: #4a753a;
@@ -246,13 +365,11 @@ footer {
     box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
 }
 
-
 /*
 =====================================================
   ESTILOS DEL MENÚ
 =====================================================
 */
-
 .menu-toggle {
     display: none;
     position: fixed;
@@ -269,7 +386,6 @@ footer {
     justify-content: space-around;
     padding: 0;
 }
-
 .menu-toggle span {
     display: block;
     width: 100%;
@@ -278,7 +394,6 @@ footer {
     border-radius: 2px;
     transition: all 0.3s ease-in-out;
 }
-
 .menu-toggle.is-open span:nth-child(1) {
     transform: rotate(45deg) translate(8px, 8px);
 }
@@ -288,7 +403,6 @@ footer {
 .menu-toggle.is-open span:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -7px);
 }
-
 .main-nav {
     position: fixed;
     top: 0;
@@ -302,22 +416,17 @@ footer {
     transition: transform 0.3s ease-in-out;
     box-shadow: 5px 0 15px rgba(0,0,0,0.2);
 }
-
 .main-nav.is-open {
     transform: translateX(0);
 }
-
 .main-nav ul {
     list-style: none;
     padding: 0 30px;
     margin: 0;
 }
-
-/* CAMBIO: Aumentamos el espacio para el nuevo item */
 .main-nav li {
     margin-bottom: 12px;
 }
-
 .main-nav a {
     color: white;
     text-decoration: none;
@@ -328,12 +437,9 @@ footer {
     transition: background-color 0.2s;
     border-radius: 5px;
 }
-
 .main-nav a:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
-
-/* --- Estilos del Submenú --- */
 .submenu {
     margin-top: 10px;
     padding-left: 20px !important; 
@@ -341,34 +447,28 @@ footer {
     overflow: hidden;
     transition: max-height 0.3s ease-out; 
 }
-
 .submenu-parent.is-open .submenu {
     max-height: 200px; 
 }
-
 .submenu a {
     font-size: 0.9em !important; 
     font-weight: normal;
     padding: 8px 0;
 }
-
 .submenu-parent > a {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
 .submenu-parent > a::after {
     content: '▼';
     font-size: 0.7em;
     margin-right: 10px;
     transition: transform 0.3s ease-out;
 }
-
 .submenu-parent.is-open > a::after {
     transform: rotate(180deg);
 }
-
 
 /*
 =====================================================
@@ -376,43 +476,35 @@ footer {
 =====================================================
 */
 @media (max-width: 768px) {
-
     .menu-toggle {
         display: flex;
     }
-
     header {
         height: auto;
         padding: 20px 0;
         padding-top: 80px; 
     }
-    
     .logo {
         width: 160px; 
         height: 160px; 
         margin-top: 0; 
         margin-bottom: 5px; 
     }
-
     header p {
         font-size: 1.0em; 
     }
-
     .content {
         padding-top: 0;
     }
 }
-
 @media (max-width: 480px) {
     header p {
         font-size: 0.9em; 
     }
-
     .logo {
         width: 120px; 
         height: 120px; 
     }
-
     #productos h2 {
         font-size: 2.0em;
     }

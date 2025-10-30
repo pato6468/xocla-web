@@ -7,7 +7,7 @@
     
     <meta name="google-site-verification" content="EqF-lN907LJ2eiSVnIGIih9EcOzTIqytxvuHms1lU8w" />
     
-    <link rel="stylesheet" href="styles.css?v=2.3"> 
+    <link rel="stylesheet" href="styles.css?v=2.4"> 
 </head>
 <body>
 
@@ -30,6 +30,8 @@
                 </ul>
             </li>
             <li><a href="#contacto">Contacto</a></li>
+            <li><a href="#carrito">Carrito</a></li>
+            <li><a href="#pago">Pagar</a></li>
         </ul>
     </nav>
 
@@ -53,48 +55,93 @@
                 
                 <div class="product-container">
                 
-                    <article class="producto cempasuchil">
+                    <article class="producto cempasuchil" data-id="1" data-nombre="Aceite de Cempasúchil" data-precio="120">
                         <h3>🌼 Aceite de Cempasúchil</h3>
                         <img src="https://via.placeholder.com/400x250.png?text=Cempasúchil" alt="Aceite de Cempasúchil" class="product-image">
                         
-                        <p>El Cempasúchil, la Flor de Muertos, no solo embellece nuestros altares. Su aceite es conocido por sus propiedades **calmantes, antioxidantes y para masajes musculares**.</p>
-                        <ul>
-                            <li>**Formato:** Aceite Esencial/Corporal.</li>
-                            <li>**Uso Principal:** **Aromaterapia y Humectante de la piel**.</li>
-                        </ul>
+                        <div class="product-info-wrapper">
+                            <p class="product-price">$120.00 MXN</p>
+                            <p>El Cempasúchil, la Flor de Muertos... (etc.)</p>
+                            <ul>
+                                <li>**Formato:** Aceite Esencial/Corporal.</li>
+                                <li>**Uso Principal:** **Aromaterapia y Humectante de la piel**.</li>
+                            </ul>
+                        </div>
+                        <button class="add-to-cart-btn">Agregar al Carrito</button>
                     </article>
             
-                    <article class="producto tomillo">
+                    <article class="producto tomillo" data-id="2" data-nombre="Pomada de Tomillo" data-precio="100">
                         <h3>🍃 Pomada de Tomillo</h3>
                         <img src="https://via.placeholder.com/400x250.png?text=Tomillo" alt="Pomada de Tomillo" class="product-image">
 
-                        <p>El Tomillo (**Thymus vulgaris**) ha sido utilizado ancestralmente. Nuestra pomada concentrada es ideal para **masajes en el pecho, alivio de la congestión y relajación muscular**.</p>
-                        <ul>
-                            <li>**Formato:** Pomada/Bálsamo.</li>
-                            <li>**Uso Principal:** **Mejora las Vías respiratorias y Relajación corporal**.</li>
-                        </ul>
+                        <div class="product-info-wrapper">
+                            <p class="product-price">$100.00 MXN</p>
+                            <p>El Tomillo (**Thymus vulgaris**) ha sido utilizado ancestralmente... (etc.)</p>
+                            <ul>
+                                <li>**Formato:** Pomada/Bálsamo.</li>
+                                <li>**Uso Principal:** **Mejora las Vías respiratorias y Relajación corporal**.</li>
+                            </ul>
+                        </div>
+                        <button class="add-to-cart-btn">Agregar al Carrito</button>
                     </article>
             
-                    <article class="producto arnica">
+                    <article class="producto arnica" data-id="3" data-nombre="Pomada de Árnica" data-precio="110">
                         <h3>🟡 Pomada de Árnica</h3>
                         <img src="https://via.placeholder.com/400x250.png?text=Árnica" alt="Pomada de Árnica" class="product-image">
 
-                        <p>La Árnica es el clásico remedio del botiquín. Perfecta para el deportista o después de un día duro, ayuda a **desinflamar, aliviar golpes leves y reducir la apariencia de moretones**.</p>
-                        <ul>
-                            <li>**Formato:** Pomada/Ungüento.</li>
-                            <li>**Uso Principal:** **Golpes y contusiones e Hinchazón**.</li>
-                        </ul>
+                        <div class="product-info-wrapper">
+                            <p class="product-price">$110.00 MXN</p>
+                            <p>La Árnica es el clásico remedio del botiquín... (etc.)</p>
+                            <ul>
+                                <li>**Formato:** Pomada/Ungüento.</li>
+                                <li>**Uso Principal:** **Golpes y contusiones e Hinchazón**.</li>
+                            </ul>
+                        </div>
+                        <button class="add-to-cart-btn">Agregar al Carrito</button>
                     </article>
 
                 </div> 
             </section>
 
+            <section id="carrito">
+                <h2>🛒 Carrito de Compras</h2>
+                <div id="cart-items-container">
+                    <p id="cart-empty-msg">Tu carrito está vacío.</p>
+                    </div>
+                <div id="cart-total">
+                    <h3>Total: $<span id="cart-total-price">0.00</span> MXN</h3>
+                    <a href="#pago" class="cta-button">Proceder al Pago</a>
+                </div>
+            </section>
+
+            <section id="pago">
+                <h2>💳 Realizar Pago (Simulación)</h2>
+                <p>Este es un formulario de simulación. No se realizará ningún cobro real.</p>
+                <form id="payment-form">
+                    <div class="form-group">
+                        <label for="name">Nombre Completo:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="card">Número de Tarjeta (ficticio):</label>
+                        <input type="text" id="card" name="card" placeholder="1234 5678 9012 3456" required>
+                    </div>
+                    
+                    <button type="submit" class="cta-button">Pagar (Simular)</button>
+                </form>
+            </section>
+
+
             <section id="contacto">
                 <h2>Contacto</h2>
-                <p>¿Tienes preguntas sobre nuestros productos? Escríbenos.</p>
+                <p>¿Tienes preguntas sobre nuestros productos o el proyecto? Escríbenos.</p>
                 <a href="mailto:xoctla.info@gmail.com" class="cta-button">Enviar un Correo</a>
             </section>
-            </main>
+        </main>
     </div>
 
     <footer>
@@ -103,16 +150,16 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- CÓDIGO DEL MENÚ (Existente) ---
             const menuToggle = document.querySelector('.menu-toggle');
             const nav = document.querySelector('.main-nav');
 
-            // Abrir/cerrar menú con el botón
             menuToggle.addEventListener('click', () => {
                 nav.classList.toggle('is-open');
                 menuToggle.classList.toggle('is-open');
             });
 
-            // Cerrar el menú al hacer clic en un enlace (que no sea de submenú)
             nav.querySelectorAll('a:not(.submenu-parent > a)').forEach(link => {
                 link.addEventListener('click', () => {
                     nav.classList.remove('is-open');
@@ -120,7 +167,6 @@
                 });
             });
             
-            // Para el submenú desplegable
             const submenuParents = document.querySelectorAll('.submenu-parent > a');
             submenuParents.forEach(parent => {
                 parent.addEventListener('click', (e) => {
@@ -129,7 +175,6 @@
                 });
             });
 
-            // Para cerrar el menú al hacer clic AFUERA
             document.addEventListener('click', (e) => {
                 const isMenuOpen = nav.classList.contains('is-open');
                 const clickedInsideNav = nav.contains(e.target);
@@ -138,6 +183,76 @@
                     nav.classList.remove('is-open'); 
                     menuToggle.classList.remove('is-open');
                 }
+            });
+
+            /* ==============================================
+             NUEVO SCRIPT: LÓGICA DEL CARRITO
+            ============================================== 
+            */
+            let cart = [];
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cartTotalElement = document.getElementById('cart-total-price');
+            const cartEmptyMsg = document.getElementById('cart-empty-msg');
+            const paymentForm = document.getElementById('payment-form');
+
+            // 1. Añadir items al carrito
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const productCard = button.closest('.producto');
+                    const product = {
+                        id: productCard.dataset.id,
+                        nombre: productCard.dataset.nombre,
+                        precio: parseFloat(productCard.dataset.precio)
+                    };
+                    
+                    cart.push(product);
+                    updateCartUI();
+                    
+                    // Opcional: Mostrar una pequeña alerta
+                    alert(`"${product.nombre}" se agregó al carrito.`);
+                });
+            });
+
+            // 2. Actualizar la UI del carrito
+            function updateCartUI() {
+                // Limpiar items actuales
+                cartItemsContainer.innerHTML = ''; 
+                
+                if (cart.length === 0) {
+                    cartItemsContainer.appendChild(cartEmptyMsg);
+                } else {
+                    let total = 0;
+                    cart.forEach(item => {
+                        const cartItem = document.createElement('div');
+                        cartItem.className = 'cart-item';
+                        cartItem.innerHTML = `<span>${item.nombre}</span><span>$${item.precio.toFixed(2)}</span>`;
+                        cartItemsContainer.appendChild(cartItem);
+                        total += item.precio;
+                    });
+                    
+                    cartTotalElement.textContent = total.toFixed(2);
+                }
+            }
+
+            // 3. Simular el pago
+            paymentForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // Prevenir que el formulario se envíe
+                
+                if (cart.length === 0) {
+                    alert('Tu carrito está vacío. Agrega productos antes de pagar.');
+                    return;
+                }
+                
+                alert('¡Simulación de pago exitosa!\nGracias por tu compra.');
+                
+                // Vaciar el carrito y actualizar UI
+                cart = [];
+                updateCartUI();
+                paymentForm.reset(); // Limpiar el formulario
+                
+                // Opcional: Regresar al inicio de la página
+                window.scrollTo(0, 0); 
             });
 
         });
