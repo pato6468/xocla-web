@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XOCTLA - Herbolaria Tradicional Mexicana</title>
-    <link rel="stylesheet" href="styles.css?v=1.5">
+    <link rel="stylesheet" href="styles.css?v=1.6"> 
 </head>
 <body>
 
@@ -28,10 +28,10 @@
             </li>
         </ul>
     </nav>
+
     <header>
         <div class="header-content">
             <h1 class="visually-hidden">🌿 XOCTLA 🌼</h1>
-            
             <img src="logo.jpeg" alt="Logo de XOCTLA" class="logo">
             <p>Rescatando La Tradición Herbolaria Mexicana</p>
         </div>
@@ -92,14 +92,33 @@
                 menuToggle.classList.toggle('is-open');
             });
 
-            // Opcional: Cerrar el menú al hacer clic en un enlace
-            nav.querySelectorAll('a').forEach(link => {
+            // Opcional: Cerrar el menú al hacer clic en un enlace (que no sea de submenú)
+            nav.querySelectorAll('a:not(.submenu-parent > a)').forEach(link => {
                 link.addEventListener('click', () => {
                     nav.classList.remove('is-open');
                     menuToggle.classList.remove('is-open');
                 });
             });
+
+            /* * =============================================================
+             * NUEVO CÓDIGO: Para hacer el submenú desplegable (acordeón)
+             * =============================================================
+             */
+            const submenuParents = document.querySelectorAll('.submenu-parent > a');
+            
+            submenuParents.forEach(parent => {
+                parent.addEventListener('click', (e) => {
+                    // Previene que la página salte al ancla (#fichas)
+                    e.preventDefault(); 
+                    
+                    // Añade o quita la clase 'is-open' al <li> padre
+                    parent.parentElement.classList.toggle('is-open');
+                });
+            });
+            /* ============================================================= */
+
         });
     </script>
-    </body>
+
+</body>
 </html>

@@ -2,7 +2,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4fce3; /* Un verde claro muy suave */
+    background-color: #f4fce3; 
     color: #333;
     line-height: 1.6;
 }
@@ -22,7 +22,7 @@ body {
 header {
     background-color: #6a994e;
     color: white;
-    padding: 20px 0; /* Un poco más de padding para el logo grande */
+    padding: 20px 0;
     text-align: center;
     position: relative;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -39,24 +39,19 @@ header {
     padding: 0 20px;
     width: 100%;
     display: flex;
-    flex-direction: column; /* Apila los elementos verticalmente */
+    flex-direction: column; 
     justify-content: center;
-    align-items: center; /* Centra horizontalmente */
+    align-items: center; 
 }
 
-/* * ============================================
- * CAMBIO AQUÍ: TAMAÑO DE LOGO EN ESCRITORIO
- * ============================================
- */
 .logo {
-    width: 210px; /* ANTES: 180px */
-    height: 210px; /* ANTES: 180px */
+    width: 210px; 
+    height: 210px; 
     border-radius: 50%;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
-    margin-bottom: 10px; /* Separación entre el logo y el lema */
+    margin-bottom: 10px; 
 }
 
-/* El h1 sigue oculto */
 header h1 {
     margin: 0;
     font-size: 2.8em;
@@ -64,14 +59,12 @@ header h1 {
     letter-spacing: 1px;
 }
 
-/* Estilos para el párrafo del lema */
 header p {
     margin-top: 5px; 
-    font-size: 1.2em; /* Un poco más grande para que coincida con el logo */
+    font-size: 1.2em; 
     opacity: 0.9;
     max-width: 80%; 
 }
-
 
 .content {
     max-width: 1200px;
@@ -183,7 +176,6 @@ footer {
 =====================================================
 */
 
-/* --- El Botón de Hamburguesa --- */
 .menu-toggle {
     display: none;
     position: fixed;
@@ -210,7 +202,6 @@ footer {
     transition: all 0.3s ease-in-out;
 }
 
-/* Animación del botón a 'X' */
 .menu-toggle.is-open span:nth-child(1) {
     transform: rotate(45deg) translate(8px, 8px);
 }
@@ -221,8 +212,6 @@ footer {
     transform: rotate(-45deg) translate(7px, -7px);
 }
 
-
-/* --- El Panel de NaveGación (Menú) --- */
 .main-nav {
     position: fixed;
     top: 0;
@@ -237,7 +226,6 @@ footer {
     box-shadow: 5px 0 15px rgba(0,0,0,0.2);
 }
 
-/* Estado abierto del menú */
 .main-nav.is-open {
     transform: translateX(0);
 }
@@ -267,14 +255,27 @@ footer {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* --- Estilos del Submenú --- */
+/* * ============================================
+ * CAMBIOS PARA EL SUBMENÚ DESPLEGABLE
+ * ============================================
+ */
 .submenu {
     margin-top: 10px;
-    padding-left: 20px !important;
+    padding-left: 20px !important; 
+    
+    /* 1. Ocultamos el submenú por defecto */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out; /* 2. Añadimos animación */
+}
+
+/* 3. Clase 'is-open' que se añade con JS para mostrar el submenú */
+.submenu-parent.is-open .submenu {
+    max-height: 200px; /* Suficiente para 3-4 items */
 }
 
 .submenu a {
-    font-size: 0.9em !important;
+    font-size: 0.9em !important; 
     font-weight: normal;
     padding: 8px 0;
 }
@@ -289,6 +290,13 @@ footer {
     content: '▼';
     font-size: 0.7em;
     margin-right: 10px;
+    /* 4. Añadimos animación a la flecha */
+    transition: transform 0.3s ease-out;
+}
+
+/* 5. Rotamos la flecha cuando el submenú está abierto */
+.submenu-parent.is-open > a::after {
+    transform: rotate(180deg); /* La flecha apunta hacia arriba */
 }
 
 
@@ -299,32 +307,25 @@ footer {
 */
 @media (max-width: 768px) {
 
-    /* --- 1. Mostramos el botón de hamburguesa --- */
     .menu-toggle {
         display: flex;
     }
 
-    /* --- 2. Arreglamos el encabezado --- */
     header {
         height: auto;
         padding: 20px 0;
-        padding-top: 80px; /* Para que el botón de menú no choque */
+        padding-top: 80px; 
     }
     
-    /* * ============================================
-     * CAMBIO AQUÍ: TAMAÑO DE LOGO EN TABLET
-     * ============================================
-     */
     .logo {
-        width: 160px; /* ANTES: 140px */
-        height: 160px; /* ANTES: 140px */
+        width: 160px; 
+        height: 160px; 
         margin-top: 0; 
         margin-bottom: 5px; 
     }
 
-    /* --- 4. El párrafo del lema en móvil --- */
     header p {
-        font-size: 1.0em; /* Un poco más grande */
+        font-size: 1.0em; 
     }
 
     .content {
@@ -334,16 +335,12 @@ footer {
 
 @media (max-width: 480px) {
     header p {
-        font-size: 0.9em; /* Un poco más grande */
+        font-size: 0.9em; 
     }
 
-    /* * ============================================
-     * CAMBIO AQUÍ: TAMAÑO DE LOGO EN MÓVIL
-     * ============================================
-     */
     .logo {
-        width: 120px; /* ANTES: 110px */
-        height: 120px; /* ANTES: 110px */
+        width: 120px; 
+        height: 120px; 
     }
 
     #productos h2 {
