@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XOCTLA - Herbolaria Tradicional Mexicana</title>
-    
+
     <meta name="google-site-verification" content="EqF-lN907LJ2eiSVnIGIih9EcOzTIqytxvuHms1lU8w" />
-    
-    <link rel="stylesheet" href="styles.css?v=3.0"> 
+
+    <link rel="stylesheet" href="styles-v3.css">
+
 </head>
 <body>
 
@@ -39,7 +40,7 @@
             <img src="logo.jpeg" alt="Logo de XOCTLA" class="logo">
             <p>Rescatando La Tradición Herbolaria Mexicana</p>
         </div>
-        
+
         <button id="cart-toggle-btn" class="cart-toggle-btn" aria-label="Abrir carrito">
             🛒
             <span id="cart-counter">0</span>
@@ -52,16 +53,16 @@
                 <h2>¿Quienes Somos?</h2>
                 <p>Somos un proyecto escolar dedicado a rescatar y presentar los beneficios de la herbolaria tradicional mexicana a través de productos sencillos y efectivos.</p>
             </section>
-        
+
             <section id="productos">
                 <h2>Nuestros Productos</h2>
-                
+
                 <div class="product-container">
-                
+
                     <article class="producto cempasuchil" data-id="1" data-nombre="Aceite de Cempasúchil" data-precio="120">
                         <h3>🌼 Aceite de Cempasúchil</h3>
                         <img src="https://via.placeholder.com/400x250.png?text=Cempasúchil" alt="Aceite de Cempasúchil" class="product-image">
-                        
+
                         <div class="product-info-wrapper">
                             <p class="product-price">$120.00 MXN</p>
                             <p>El Cempasúchil, la Flor de Muertos... (etc.)</p>
@@ -72,7 +73,7 @@
                         </div>
                         <button class="add-to-cart-btn">Agregar al Carrito</button>
                     </article>
-            
+
                     <article class="producto tomillo" data-id="2" data-nombre="Pomada de Tomillo" data-precio="100">
                         <h3>🍃 Pomada de Tomillo</h3>
                         <img src="https://via.placeholder.com/400x250.png?text=Tomillo" alt="Pomada de Tomillo" class="product-image">
@@ -87,7 +88,7 @@
                         </div>
                         <button class="add-to-cart-btn">Agregar al Carrito</button>
                     </article>
-            
+
                     <article class="producto arnica" data-id="3" data-nombre="Pomada de Árnica" data-precio="110">
                         <h3>🟡 Pomada de Árnica</h3>
                         <img src="https://via.placeholder.com/400x250.png?text=Árnica" alt="Pomada de Árnica" class="product-image">
@@ -103,7 +104,7 @@
                         <button class="add-to-cart-btn">Agregar al Carrito</button>
                     </article>
 
-                </div> 
+                </div>
             </section>
 
             <section id="contacto">
@@ -136,7 +137,7 @@
             <button id="modal-close-btn" class="modal-close-btn" aria-label="Cerrar pago">&times;</button>
             <h2>💳 Realizar Pago</h2>
             <p>Por favor, ingrese sus datos para completar la compra.</p>
-            
+
             <form id="payment-form">
                 <div class="form-group">
                     <label for="name">Nombre Completo:</label>
@@ -148,17 +149,17 @@
                 </div>
                 <div class="form-group">
                     <label for="card">Número de Tarjeta:</label>
-                    <input type="text" id="card" name="card" placeholder="1234 5678 9012 3456" 
+                    <input type="text" id="card" name="card" placeholder="1234 5678 9012 3456"
                            inputmode="numeric" maxlength="19" pattern="[0-9\\s]*" required>
                     <p id="card-error" class="error-message">Por favor, ingrese un número de tarjeta válido de 16 dígitos.</p>
                 </div>
                 <button type="submit" class="cta-button">Pagar</button>
             </form>
-            
+
             <div id="success-message" class="success-message">
                 ✅ ¡Pago exitoso! Gracias por tu compra.
             </div>
-            
+
         </div>
     </div>
 
@@ -167,7 +168,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            
+
             // --- CÓDIGO DEL MENÚ ---
             const menuToggle = document.querySelector('.menu-toggle');
             const nav = document.querySelector('.main-nav');
@@ -179,10 +180,10 @@
 
             /* ==============================================
              SCRIPT: LÓGICA DEL CARRITO
-            ============================================== 
+            ==============================================
             */
             let cart = [];
-            
+
             const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
             const cartToggleBtn = document.getElementById('cart-toggle-btn');
             const cartCounter = document.getElementById('cart-counter');
@@ -192,22 +193,20 @@
             const cartTotalElement = document.getElementById('cart-total-price');
             const cartEmptyMsg = document.getElementById('cart-empty-msg');
             const checkoutBtn = document.getElementById('checkout-btn');
-            
+
             const paymentModal = document.getElementById('payment-modal');
             const modalCloseBtn = document.getElementById('modal-close-btn');
             const paymentForm = document.getElementById('payment-form');
             const backdrop = document.getElementById('modal-backdrop');
-            
-            const successMessage = document.getElementById('success-message'); 
-            
-            // NUEVO: Referencia al error de carrito vacío
+
+            const successMessage = document.getElementById('success-message');
             const cartCheckoutError = document.getElementById('cart-checkout-error');
 
             // --- Funciones de Modales ---
             function openCart() { cartSidebar.classList.add('is-open'); backdrop.classList.add('is-open'); }
             function closeCart() { cartSidebar.classList.remove('is-open'); backdrop.classList.remove('is-open'); }
             function openPaymentModal() { paymentModal.classList.add('is-open'); backdrop.classList.add('is-open'); }
-            function closePaymentModal() { paymentModal.classList.remove('is-open'); backdrop.classList.remove('is-open'); successMessage.style.display = 'none'; } 
+            function closePaymentModal() { paymentModal.classList.remove('is-open'); backdrop.classList.remove('is-open'); successMessage.style.display = 'none'; }
 
             // --- Eventos de Carrito y Modales ---
             cartToggleBtn.addEventListener('click', openCart);
@@ -215,22 +214,14 @@
             modalCloseBtn.addEventListener('click', closePaymentModal);
             backdrop.addEventListener('click', () => { closeCart(); closePaymentModal(); });
 
-            /* ==============================================
-             CAMBIO: Lógica para mostrar error de carrito vacío
-            ============================================== 
-            */
-            checkoutBtn.addEventListener('click', () => { 
-                // Ocultar el mensaje de error al principio
-                cartCheckoutError.style.display = 'none'; 
-
+            checkoutBtn.addEventListener('click', () => {
+                cartCheckoutError.style.display = 'none';
                 if (cart.length === 0) {
-                    // Mostrar el mensaje de error en lugar del alert
-                    cartCheckoutError.style.display = 'block'; 
-                    return; 
-                } 
-                // Si no está vacío, proceder
-                closeCart(); 
-                openPaymentModal(); 
+                    cartCheckoutError.style.display = 'block';
+                    return;
+                }
+                closeCart();
+                openPaymentModal();
             });
 
             // 1. Añadir items al carrito
@@ -238,39 +229,39 @@
 
             // 2. Actualizar la UI del carrito
             function updateCartUI() {
-                cartItemsContainer.innerHTML = ''; 
+                cartItemsContainer.innerHTML = '';
                 if (cart.length === 0) { cartItemsContainer.appendChild(cartEmptyMsg.cloneNode(true)); cartTotalElement.textContent = '0.00'; cartCounter.textContent = '0'; cartCounter.style.display = 'none'; } else { let total = 0; cart.forEach(item => { const cartItem = document.createElement('div'); cartItem.className = 'cart-item'; cartItem.innerHTML = `<span>${item.nombre}</span><span>$${item.precio.toFixed(2)}</span>`; cartItemsContainer.appendChild(cartItem); total += item.precio; }); cartTotalElement.textContent = total.toFixed(2); cartCounter.textContent = cart.length; cartCounter.style.display = 'block'; }
             }
 
             // 3. Formulario de Pago
             paymentForm.addEventListener('submit', (e) => {
-                e.preventDefault(); 
-                if (cart.length === 0) { /* Ya no debería llegar aquí */ return; }
-                
+                e.preventDefault();
+                if (cart.length === 0) { return; }
+
                 const cardInput = document.getElementById('card');
-                const cardError = document.getElementById('card-error'); 
-                const cardNumber = cardInput.value.replace(/\s/g, ''); 
-                
-                cardError.style.display = 'none'; 
+                const cardError = document.getElementById('card-error');
+                const cardNumber = cardInput.value.replace(/\s/g, '');
+
+                cardError.style.display = 'none';
 
                 if (cardNumber.length !== 16 || isNaN(cardNumber)) {
-                    cardError.style.display = 'block'; 
-                    return; 
+                    cardError.style.display = 'block';
+                    return;
                 }
 
-                // Mostrar mensaje de éxito y cerrar modal
-                paymentForm.style.display = 'none'; 
-                successMessage.style.display = 'block'; 
+                // Esta es la lógica que oculta el formulario
+                paymentForm.style.display = 'none';
+                successMessage.style.display = 'block';
 
                 setTimeout(() => {
-                    successMessage.style.display = 'none'; 
-                    paymentForm.style.display = 'block'; 
-                    paymentForm.reset();                 
-                    cart = [];                           
-                    updateCartUI();                      
-                    closePaymentModal();                 
-                    window.scrollTo(0, 0);               
-                }, 3000); 
+                    successMessage.style.display = 'none';
+                    paymentForm.style.display = 'block';
+                    paymentForm.reset();
+                    cart = [];
+                    updateCartUI();
+                    closePaymentModal();
+                    window.scrollTo(0, 0);
+                }, 3000);
             });
 
             // Iniciar UI
