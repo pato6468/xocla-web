@@ -7,7 +7,7 @@
     
     <meta name="google-site-verification" content="EqF-lN907LJ2eiSVnIGIih9EcOzTIqytxvuHms1lU8w" />
     
-    <link rel="stylesheet" href="styles.css?v=2.7"> 
+    <link rel="stylesheet" href="styles.css?v=2.8"> 
 </head>
 <body>
 
@@ -153,6 +153,11 @@
                 </div>
                 <button type="submit" class="cta-button">Pagar</button>
             </form>
+            
+            <div id="success-message" class="success-message">
+                ✅ ¡Pago exitoso! Gracias por tu compra.
+            </div>
+            
         </div>
     </div>
 
@@ -166,32 +171,11 @@
             // (Esta parte no ha cambiado)
             const menuToggle = document.querySelector('.menu-toggle');
             const nav = document.querySelector('.main-nav');
-            menuToggle.addEventListener('click', () => {
-                nav.classList.toggle('is-open');
-                menuToggle.classList.toggle('is-open');
-            });
-            nav.querySelectorAll('a:not(.submenu-parent > a)').forEach(link => {
-                link.addEventListener('click', () => {
-                    nav.classList.remove('is-open');
-                    menuToggle.classList.remove('is-open');
-                });
-            });
+            menuToggle.addEventListener('click', () => { nav.classList.toggle('is-open'); menuToggle.classList.toggle('is-open'); });
+            nav.querySelectorAll('a:not(.submenu-parent > a)').forEach(link => { link.addEventListener('click', () => { nav.classList.remove('is-open'); menuToggle.classList.remove('is-open'); }); });
             const submenuParents = document.querySelectorAll('.submenu-parent > a');
-            submenuParents.forEach(parent => {
-                parent.addEventListener('click', (e) => {
-                    e.preventDefault(); 
-                    parent.parentElement.classList.toggle('is-open');
-                });
-            });
-            document.addEventListener('click', (e) => {
-                const isMenuOpen = nav.classList.contains('is-open');
-                const clickedInsideNav = nav.contains(e.target);
-                const clickedOnToggle = menuToggle.contains(e.target);
-                if (isMenuOpen && !clickedInsideNav && !clickedOnToggle) {
-                    nav.classList.remove('is-open'); 
-                    menuToggle.classList.remove('is-open');
-                }
-            });
+            submenuParents.forEach(parent => { parent.addEventListener('click', (e) => { e.preventDefault(); parent.parentElement.classList.toggle('is-open'); }); });
+            document.addEventListener('click', (e) => { const isMenuOpen = nav.classList.contains('is-open'); const clickedInsideNav = nav.contains(e.target); const clickedOnToggle = menuToggle.contains(e.target); if (isMenuOpen && !clickedInsideNav && !clickedOnToggle) { nav.classList.remove('is-open'); menuToggle.classList.remove('is-open'); } });
 
             /* ==============================================
              SCRIPT: LÓGICA DEL CARRITO
@@ -213,114 +197,70 @@
             const modalCloseBtn = document.getElementById('modal-close-btn');
             const paymentForm = document.getElementById('payment-form');
             const backdrop = document.getElementById('modal-backdrop');
+            
+            // NUEVO: Referencia al mensaje de éxito
+            const successMessage = document.getElementById('success-message'); 
 
             // --- Funciones de Modales ---
-            function openCart() {
-                cartSidebar.classList.add('is-open');
-                backdrop.classList.add('is-open');
-            }
-            function closeCart() {
-                cartSidebar.classList.remove('is-open');
-                backdrop.classList.remove('is-open');
-            }
-            function openPaymentModal() {
-                paymentModal.classList.add('is-open');
-                backdrop.classList.add('is-open');
-            }
-            function closePaymentModal() {
-                paymentModal.classList.remove('is-open');
-                backdrop.classList.remove('is-open');
-            }
+            function openCart() { cartSidebar.classList.add('is-open'); backdrop.classList.add('is-open'); }
+            function closeCart() { cartSidebar.classList.remove('is-open'); backdrop.classList.remove('is-open'); }
+            function openPaymentModal() { paymentModal.classList.add('is-open'); backdrop.classList.add('is-open'); }
+            function closePaymentModal() { paymentModal.classList.remove('is-open'); backdrop.classList.remove('is-open'); successMessage.style.display = 'none'; } // Ocultar mensaje al cerrar
 
             // --- Eventos de Carrito y Modales ---
             cartToggleBtn.addEventListener('click', openCart);
             cartCloseBtn.addEventListener('click', closeCart);
             modalCloseBtn.addEventListener('click', closePaymentModal);
-            backdrop.addEventListener('click', () => {
-                closeCart();
-                closePaymentModal();
-            });
+            backdrop.addEventListener('click', () => { closeCart(); closePaymentModal(); });
 
-            checkoutBtn.addEventListener('click', () => {
-                if (cart.length === 0) {
-                    alert('Tu carrito está vacío.');
-                    return;
-                }
-                closeCart();
-                openPaymentModal();
-            });
+            checkoutBtn.addEventListener('click', () => { if (cart.length === 0) { alert('Tu carrito está vacío.'); return; } closeCart(); openPaymentModal(); });
 
             // 1. Añadir items al carrito
-            addToCartButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const productCard = button.closest('.producto');
-                    const product = {
-                        id: productCard.dataset.id,
-                        nombre: productCard.dataset.nombre,
-                        precio: parseFloat(productCard.dataset.precio)
-                    };
-                    cart.push(product);
-                    updateCartUI();
-                    openCart(); 
-                });
-            });
+            addToCartButtons.forEach(button => { button.addEventListener('click', () => { const productCard = button.closest('.producto'); const product = { id: productCard.dataset.id, nombre: productCard.dataset.nombre, precio: parseFloat(productCard.dataset.precio) }; cart.push(product); updateCartUI(); openCart(); }); });
 
             // 2. Actualizar la UI del carrito
             function updateCartUI() {
                 cartItemsContainer.innerHTML = ''; 
-                
-                if (cart.length === 0) {
-                    cartItemsContainer.appendChild(cartEmptyMsg.cloneNode(true));
-                    cartTotalElement.textContent = '0.00';
-                    cartCounter.textContent = '0';
-                    cartCounter.style.display = 'none';
-                } else {
-                    let total = 0;
-                    cart.forEach(item => {
-                        const cartItem = document.createElement('div');
-                        cartItem.className = 'cart-item';
-                        cartItem.innerHTML = `<span>${item.nombre}</span><span>$${item.precio.toFixed(2)}</span>`;
-                        cartItemsContainer.appendChild(cartItem);
-                        total += item.precio;
-                    });
-                    
-                    cartTotalElement.textContent = total.toFixed(2);
-                    cartCounter.textContent = cart.length;
-                    cartCounter.style.display = 'block';
-                }
+                if (cart.length === 0) { cartItemsContainer.appendChild(cartEmptyMsg.cloneNode(true)); cartTotalElement.textContent = '0.00'; cartCounter.textContent = '0'; cartCounter.style.display = 'none'; } else { let total = 0; cart.forEach(item => { const cartItem = document.createElement('div'); cartItem.className = 'cart-item'; cartItem.innerHTML = `<span>${item.nombre}</span><span>$${item.precio.toFixed(2)}</span>`; cartItemsContainer.appendChild(cartItem); total += item.precio; }); cartTotalElement.textContent = total.toFixed(2); cartCounter.textContent = cart.length; cartCounter.style.display = 'block'; }
             }
 
-            // 3. Formulario de Pago con Validación
+            /* ==============================================
+             CAMBIO: Formulario de Pago con Mensaje de Éxito
+            ============================================== 
+            */
             paymentForm.addEventListener('submit', (e) => {
                 e.preventDefault(); 
+                if (cart.length === 0) { alert('Tu carrito está vacío.'); return; }
                 
-                if (cart.length === 0) {
-                    alert('Tu carrito está vacío. Agrega productos antes de pagar.');
-                    return;
-                }
-
-                // --- VALIDACIÓN ---
                 const cardInput = document.getElementById('card');
                 const cardError = document.getElementById('card-error'); 
                 const cardNumber = cardInput.value.replace(/\s/g, ''); 
                 
                 cardError.style.display = 'none'; 
 
-                // La validación `isNaN(cardNumber)` ya comprueba que solo sean números.
                 if (cardNumber.length !== 16 || isNaN(cardNumber)) {
                     cardError.style.display = 'block'; 
                     return; 
                 }
-                // --- FIN DE VALIDACIÓN ---
 
-                // Si la validación pasa:
-                alert('¡Pago exitoso!\nGracias por tu compra.');
+                // --- NUEVO: Mostrar mensaje de éxito y cerrar modal ---
+                // 1. Ocultar el formulario
+                paymentForm.style.display = 'none'; 
                 
-                cart = [];
-                updateCartUI();
-                paymentForm.reset(); 
-                closePaymentModal(); 
-                window.scrollTo(0, 0); 
+                // 2. Mostrar el mensaje de éxito
+                successMessage.style.display = 'block'; 
+
+                // 3. Después de 3 segundos, cerrar todo
+                setTimeout(() => {
+                    successMessage.style.display = 'none'; // Ocultar mensaje
+                    paymentForm.style.display = 'block'; // Mostrar formulario de nuevo para la próxima vez
+                    paymentForm.reset();                 // Limpiar formulario
+                    cart = [];                           // Vaciar carrito
+                    updateCartUI();                      // Actualizar UI del carrito
+                    closePaymentModal();                 // Cerrar el modal
+                    window.scrollTo(0, 0);               // Ir al inicio de la página
+                }, 3000); // 3000 milisegundos = 3 segundos
+                // --- FIN ---
             });
 
             // Iniciar UI

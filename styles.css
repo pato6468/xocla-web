@@ -515,6 +515,8 @@ section {
     width: 90%;
     max-width: 500px;
     position: relative;
+    /* Para que el mensaje de éxito se posicione bien */
+    overflow: hidden; 
 }
 .modal-close-btn {
     position: absolute;
@@ -525,6 +527,7 @@ section {
     border: none;
     cursor: pointer;
     color: #888;
+    z-index: 2; /* Encima del mensaje de éxito */
 }
 .modal-content h2 {
     font-size: 1.8em;
@@ -577,23 +580,42 @@ section {
     box-sizing: border-box;
 }
 
-/* * ============================================
- * ESTILO DEL MENSAJE DE ERROR
- * ============================================
- */
+/* --- Mensaje de Error --- */
 .error-message {
-    display: none; /* Oculto por defecto */
-    color: #c0392b; /* Rojo de error */
+    display: none; 
+    color: #c0392b; 
     font-size: 0.9em;
     font-weight: bold;
     margin-top: 8px;
 }
-/* ============================================ */
 
 #payment-form .cta-button {
     width: 100%;
     border: none;
     cursor: pointer;
+}
+
+/* * ============================================
+ * NUEVO: Estilo del Mensaje de Éxito
+ * ============================================
+ */
+.success-message {
+    display: none; /* Oculto por defecto */
+    background-color: #dff0d8; /* Verde muy claro */
+    color: #3c763d; /* Verde oscuro */
+    border: 1px solid #d6e9c6;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    
+    /* Posicionamiento opcional si quieres que "tape" el formulario */
+    /* position: absolute; */
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    /* width: 80%; */
 }
 
 
