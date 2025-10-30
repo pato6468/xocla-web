@@ -7,7 +7,7 @@
     
     <meta name="google-site-verification" content="EqF-lN907LJ2eiSVnIGIih9EcOzTIqytxvuHms1lU8w" />
     
-    <link rel="stylesheet" href="styles.css?v=2.8"> 
+    <link rel="stylesheet" href="styles.css?v=2.9"> 
 </head>
 <body>
 
@@ -127,6 +127,7 @@
         <div id="cart-total">
             <h3>Total: $<span id="cart-total-price">0.00</span> MXN</h3>
             <button id="checkout-btn" class="cta-button">Proceder al Pago</button>
+            <p id="cart-checkout-error" class="error-message">Tu carrito está vacío. Agrega productos antes de pagar.</p>
         </div>
     </div>
 
@@ -168,7 +169,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- CÓDIGO DEL MENÚ ---
-            // (Esta parte no ha cambiado)
             const menuToggle = document.querySelector('.menu-toggle');
             const nav = document.querySelector('.main-nav');
             menuToggle.addEventListener('click', () => { nav.classList.toggle('is-open'); menuToggle.classList.toggle('is-open'); });
@@ -198,14 +198,16 @@
             const paymentForm = document.getElementById('payment-form');
             const backdrop = document.getElementById('modal-backdrop');
             
-            // NUEVO: Referencia al mensaje de éxito
             const successMessage = document.getElementById('success-message'); 
+            
+            // NUEVO: Referencia al error de carrito vacío
+            const cartCheckoutError = document.getElementById('cart-checkout-error');
 
             // --- Funciones de Modales ---
             function openCart() { cartSidebar.classList.add('is-open'); backdrop.classList.add('is-open'); }
             function closeCart() { cartSidebar.classList.remove('is-open'); backdrop.classList.remove('is-open'); }
             function openPaymentModal() { paymentModal.classList.add('is-open'); backdrop.classList.add('is-open'); }
-            function closePaymentModal() { paymentModal.classList.remove('is-open'); backdrop.classList.remove('is-open'); successMessage.style.display = 'none'; } // Ocultar mensaje al cerrar
+            function closePaymentModal() { paymentModal.classList.remove('is-open'); backdrop.classList.remove('is-open'); successMessage.style.display = 'none'; } 
 
             // --- Eventos de Carrito y Modales ---
             cartToggleBtn.addEventListener('click', openCart);
@@ -213,7 +215,23 @@
             modalCloseBtn.addEventListener('click', closePaymentModal);
             backdrop.addEventListener('click', () => { closeCart(); closePaymentModal(); });
 
-            checkoutBtn.addEventListener('click', () => { if (cart.length === 0) { alert('Tu carrito está vacío.'); return; } closeCart(); openPaymentModal(); });
+            /* ==============================================
+             CAMBIO: Lógica para mostrar error de carrito vacío
+            ============================================== 
+            */
+            checkoutBtn.addEventListener('click', () => { 
+                // Ocultar el mensaje de error al principio
+                cartCheckoutError.style.display = 'none'; 
+
+                if (cart.length === 0) {
+                    // Mostrar el mensaje de error en lugar del alert
+                    cartCheckoutError.style.display = 'block'; 
+                    return; 
+                } 
+                // Si no está vacío, proceder
+                closeCart(); 
+                openPaymentModal(); 
+            });
 
             // 1. Añadir items al carrito
             addToCartButtons.forEach(button => { button.addEventListener('click', () => { const productCard = button.closest('.producto'); const product = { id: productCard.dataset.id, nombre: productCard.dataset.nombre, precio: parseFloat(productCard.dataset.precio) }; cart.push(product); updateCartUI(); openCart(); }); });
@@ -224,13 +242,10 @@
                 if (cart.length === 0) { cartItemsContainer.appendChild(cartEmptyMsg.cloneNode(true)); cartTotalElement.textContent = '0.00'; cartCounter.textContent = '0'; cartCounter.style.display = 'none'; } else { let total = 0; cart.forEach(item => { const cartItem = document.createElement('div'); cartItem.className = 'cart-item'; cartItem.innerHTML = `<span>${item.nombre}</span><span>$${item.precio.toFixed(2)}</span>`; cartItemsContainer.appendChild(cartItem); total += item.precio; }); cartTotalElement.textContent = total.toFixed(2); cartCounter.textContent = cart.length; cartCounter.style.display = 'block'; }
             }
 
-            /* ==============================================
-             CAMBIO: Formulario de Pago con Mensaje de Éxito
-            ============================================== 
-            */
+            // 3. Formulario de Pago
             paymentForm.addEventListener('submit', (e) => {
                 e.preventDefault(); 
-                if (cart.length === 0) { alert('Tu carrito está vacío.'); return; }
+                if (cart.length === 0) { /* Ya no debería llegar aquí */ return; }
                 
                 const cardInput = document.getElementById('card');
                 const cardError = document.getElementById('card-error'); 
@@ -243,24 +258,19 @@
                     return; 
                 }
 
-                // --- NUEVO: Mostrar mensaje de éxito y cerrar modal ---
-                // 1. Ocultar el formulario
+                // Mostrar mensaje de éxito y cerrar modal
                 paymentForm.style.display = 'none'; 
-                
-                // 2. Mostrar el mensaje de éxito
                 successMessage.style.display = 'block'; 
 
-                // 3. Después de 3 segundos, cerrar todo
                 setTimeout(() => {
-                    successMessage.style.display = 'none'; // Ocultar mensaje
-                    paymentForm.style.display = 'block'; // Mostrar formulario de nuevo para la próxima vez
-                    paymentForm.reset();                 // Limpiar formulario
-                    cart = [];                           // Vaciar carrito
-                    updateCartUI();                      // Actualizar UI del carrito
-                    closePaymentModal();                 // Cerrar el modal
-                    window.scrollTo(0, 0);               // Ir al inicio de la página
-                }, 3000); // 3000 milisegundos = 3 segundos
-                // --- FIN ---
+                    successMessage.style.display = 'none'; 
+                    paymentForm.style.display = 'block'; 
+                    paymentForm.reset();                 
+                    cart = [];                           
+                    updateCartUI();                      
+                    closePaymentModal();                 
+                    window.scrollTo(0, 0);               
+                }, 3000); 
             });
 
             // Iniciar UI

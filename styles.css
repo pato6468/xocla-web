@@ -483,7 +483,18 @@ section {
 #cart-total .cta-button {
     width: 100%;
 }
-
+/* * ============================================
+ * NUEVO: Estilo para error de carrito vacío
+ * ============================================
+ */
+#cart-checkout-error {
+    display: none; /* Oculto por defecto */
+    color: #c0392b; /* Rojo */
+    font-size: 0.9em;
+    font-weight: bold;
+    text-align: center; /* Centrado */
+    margin-top: 15px; /* Espacio arriba */
+}
 
 /* --- Modal de Pago --- */
 .modal {
@@ -582,7 +593,7 @@ section {
 /* --- Mensaje de Error --- */
 .error-message {
     display: none; 
-    color: #c0392b; /* Rojo de error */
+    color: #c0392b; 
     font-size: 0.9em;
     font-weight: bold;
     margin-top: 8px;
@@ -596,9 +607,9 @@ section {
 
 /* --- Mensaje de Éxito --- */
 .success-message {
-    display: none; /* Oculto por defecto */
-    background-color: #dff0d8; /* Verde muy claro */
-    color: #3c763d; /* Verde oscuro */
+    display: none; 
+    background-color: #dff0d8; 
+    color: #3c763d; 
     border: 1px solid #d6e9c6;
     padding: 20px;
     border-radius: 5px;
