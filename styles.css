@@ -373,7 +373,7 @@ section {
 
 
 /* =====================================================
- NUEVOS ESTILOS: CARRITO Y MODALES
+ ESTILOS: CARRITO Y MODALES
 =====================================================
 */
 
@@ -578,7 +578,7 @@ section {
 }
 
 /* * ============================================
- * NUEVO: Estilo del Mensaje de Error
+ * ESTILO DEL MENSAJE DE ERROR
  * ============================================
  */
 .error-message {
@@ -588,6 +588,7 @@ section {
     font-weight: bold;
     margin-top: 8px;
 }
+/* ============================================ */
 
 #payment-form .cta-button {
     width: 100%;
