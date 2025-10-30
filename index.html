@@ -7,7 +7,7 @@
     
     <meta name="google-site-verification" content="EqF-lN907LJ2eiSVnIGIih9EcOzTIqytxvuHms1lU8w" />
     
-    <link rel="stylesheet" href="styles.css?v=2.4"> 
+    <link rel="stylesheet" href="styles.css?v=2.5"> 
 </head>
 <body>
 
@@ -30,8 +30,6 @@
                 </ul>
             </li>
             <li><a href="#contacto">Contacto</a></li>
-            <li><a href="#carrito">Carrito</a></li>
-            <li><a href="#pago">Pagar</a></li>
         </ul>
     </nav>
 
@@ -41,6 +39,11 @@
             <img src="logo.jpeg" alt="Logo de XOCTLA" class="logo">
             <p>Rescatando La Tradición Herbolaria Mexicana</p>
         </div>
+        
+        <button id="cart-toggle-btn" class="cart-toggle-btn" aria-label="Abrir carrito">
+            🛒
+            <span id="cart-counter">0</span>
+        </button>
     </header>
 
     <div class="content">
@@ -103,39 +106,6 @@
                 </div> 
             </section>
 
-            <section id="carrito">
-                <h2>🛒 Carrito de Compras</h2>
-                <div id="cart-items-container">
-                    <p id="cart-empty-msg">Tu carrito está vacío.</p>
-                    </div>
-                <div id="cart-total">
-                    <h3>Total: $<span id="cart-total-price">0.00</span> MXN</h3>
-                    <a href="#pago" class="cta-button">Proceder al Pago</a>
-                </div>
-            </section>
-
-            <section id="pago">
-                <h2>💳 Realizar Pago (Simulación)</h2>
-                <p>Este es un formulario de simulación. No se realizará ningún cobro real.</p>
-                <form id="payment-form">
-                    <div class="form-group">
-                        <label for="name">Nombre Completo:</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Correo Electrónico:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="card">Número de Tarjeta (ficticio):</label>
-                        <input type="text" id="card" name="card" placeholder="1234 5678 9012 3456" required>
-                    </div>
-                    
-                    <button type="submit" class="cta-button">Pagar (Simular)</button>
-                </form>
-            </section>
-
-
             <section id="contacto">
                 <h2>Contacto</h2>
                 <p>¿Tienes preguntas sobre nuestros productos o el proyecto? Escríbenos.</p>
@@ -147,6 +117,44 @@
     <footer>
         <p>&copy; 2025 Proyecto Escolar: Herbolaria Mexicana. Todos los derechos reservados.</p>
     </footer>
+
+    <div id="cart-sidebar" class="cart-sidebar">
+        <button id="cart-close-btn" class="cart-close-btn" aria-label="Cerrar carrito">&times;</button>
+        <h2>🛒 Carrito de Compras</h2>
+        <div id="cart-items-container">
+            <p id="cart-empty-msg">Tu carrito está vacío.</p>
+            </div>
+        <div id="cart-total">
+            <h3>Total: $<span id="cart-total-price">0.00</span> MXN</h3>
+            <button id="checkout-btn" class="cta-button">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <button id="modal-close-btn" class="modal-close-btn" aria-label="Cerrar pago">&times;</button>
+            <h2>💳 Realizar Pago (Simulación)</h2>
+            <p>Este es un formulario de simulación. No se realizará ningún cobro real.</p>
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="name">Nombre Completo:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="card">Número de Tarjeta (ficticio):</label>
+                    <input type="text" id="card" name="card" placeholder="1234 5678 9012 3456" required>
+                </div>
+                <button type="submit" class="cta-button">Pagar (Simular)</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-backdrop" class="modal-backdrop"></div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -186,15 +194,62 @@
             });
 
             /* ==============================================
-             NUEVO SCRIPT: LÓGICA DEL CARRITO
+             NUEVO SCRIPT: LÓGICA DEL CARRITO (MODIFICADA)
             ============================================== 
             */
             let cart = [];
+            
+            // Referencias a todos los nuevos elementos
             const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            const cartToggleBtn = document.getElementById('cart-toggle-btn');
+            const cartCounter = document.getElementById('cart-counter');
+            const cartSidebar = document.getElementById('cart-sidebar');
+            const cartCloseBtn = document.getElementById('cart-close-btn');
             const cartItemsContainer = document.getElementById('cart-items-container');
             const cartTotalElement = document.getElementById('cart-total-price');
             const cartEmptyMsg = document.getElementById('cart-empty-msg');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            
+            const paymentModal = document.getElementById('payment-modal');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
             const paymentForm = document.getElementById('payment-form');
+            const backdrop = document.getElementById('modal-backdrop');
+
+            // --- Funciones de Modales ---
+            function openCart() {
+                cartSidebar.classList.add('is-open');
+                backdrop.classList.add('is-open');
+            }
+            function closeCart() {
+                cartSidebar.classList.remove('is-open');
+                backdrop.classList.remove('is-open');
+            }
+            function openPaymentModal() {
+                paymentModal.classList.add('is-open');
+                backdrop.classList.add('is-open');
+            }
+            function closePaymentModal() {
+                paymentModal.classList.remove('is-open');
+                backdrop.classList.remove('is-open');
+            }
+
+            // --- Eventos de Carrito y Modales ---
+            cartToggleBtn.addEventListener('click', openCart);
+            cartCloseBtn.addEventListener('click', closeCart);
+            modalCloseBtn.addEventListener('click', closePaymentModal);
+            backdrop.addEventListener('click', () => {
+                closeCart();
+                closePaymentModal();
+            });
+
+            checkoutBtn.addEventListener('click', () => {
+                if (cart.length === 0) {
+                    alert('Tu carrito está vacío.');
+                    return;
+                }
+                closeCart();
+                openPaymentModal();
+            });
 
             // 1. Añadir items al carrito
             addToCartButtons.forEach(button => {
@@ -209,18 +264,20 @@
                     cart.push(product);
                     updateCartUI();
                     
-                    // Opcional: Mostrar una pequeña alerta
-                    alert(`"${product.nombre}" se agregó al carrito.`);
+                    // Abrir el carrito automáticamente al añadir
+                    openCart(); 
                 });
             });
 
             // 2. Actualizar la UI del carrito
             function updateCartUI() {
-                // Limpiar items actuales
                 cartItemsContainer.innerHTML = ''; 
                 
                 if (cart.length === 0) {
-                    cartItemsContainer.appendChild(cartEmptyMsg);
+                    cartItemsContainer.appendChild(cartEmptyMsg.cloneNode(true)); // Usamos clon para evitar problemas
+                    cartTotalElement.textContent = '0.00';
+                    cartCounter.textContent = '0';
+                    cartCounter.style.display = 'none'; // Ocultar contador
                 } else {
                     let total = 0;
                     cart.forEach(item => {
@@ -232,28 +289,26 @@
                     });
                     
                     cartTotalElement.textContent = total.toFixed(2);
+                    cartCounter.textContent = cart.length;
+                    cartCounter.style.display = 'block'; // Mostrar contador
                 }
             }
 
             // 3. Simular el pago
             paymentForm.addEventListener('submit', (e) => {
-                e.preventDefault(); // Prevenir que el formulario se envíe
-                
-                if (cart.length === 0) {
-                    alert('Tu carrito está vacío. Agrega productos antes de pagar.');
-                    return;
-                }
+                e.preventDefault(); 
                 
                 alert('¡Simulación de pago exitosa!\nGracias por tu compra.');
                 
-                // Vaciar el carrito y actualizar UI
                 cart = [];
                 updateCartUI();
-                paymentForm.reset(); // Limpiar el formulario
-                
-                // Opcional: Regresar al inicio de la página
+                paymentForm.reset(); 
+                closePaymentModal(); // Cerrar el modal de pago
                 window.scrollTo(0, 0); 
             });
+
+            // Iniciar UI
+            updateCartUI();
 
         });
     </script>

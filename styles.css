@@ -82,7 +82,6 @@ section {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    /* Clave para que el scroll del menú no quede tapado */
     scroll-margin-top: 100px;
 }
 
@@ -162,14 +161,12 @@ section {
     object-fit: cover; 
 }
 
-/* NUEVO: Wrapper para empujar el botón al fondo */
 .product-info-wrapper {
     padding: 0 25px;
     margin-top: 20px;
-    flex-grow: 1; /* Esto es clave, hace que este div crezca y empuje el botón */
+    flex-grow: 1; 
 }
 
-/* NUEVO: Estilo del Precio */
 .product-price {
     font-size: 1.4em;
     font-weight: bold;
@@ -205,7 +202,6 @@ section {
     color: #444;
 }
 
-/* NUEVO: Estilo del Botón de Carrito */
 .add-to-cart-btn {
     display: block;
     background-color: #6a994e;
@@ -218,101 +214,11 @@ section {
     border: none;
     cursor: pointer;
     width: 100%;
-    margin-top: 15px; /* Espacio entre el contenido y el botón */
+    margin-top: 15px; 
     transition: background-color 0.2s;
 }
 .add-to-cart-btn:hover {
     background-color: #4a753a;
-}
-
-
-/* * ============================================
- * NUEVA SECCIÓN: CARRITO DE COMPRAS
- * ============================================
- */
-#carrito {
-    background-color: #fdfdfd;
-}
-#carrito h2 {
-    font-size: 2.5em;
-    color: #4a753a;
-    margin-bottom: 30px;
-    text-align: center;
-}
-#cart-items-container {
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 20px;
-    min-height: 50px;
-    margin-bottom: 20px;
-}
-#cart-empty-msg {
-    text-align: center;
-    color: #888;
-    font-style: italic;
-}
-.cart-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px dashed #ddd;
-}
-.cart-item span:first-child {
-    font-weight: bold;
-}
-.cart-item:last-child {
-    border-bottom: none;
-}
-#cart-total {
-    text-align: right;
-}
-#cart-total h3 {
-    font-size: 1.8em;
-    color: #333;
-}
-#cart-total .cta-button {
-    margin-top: 10px;
-}
-
-/* * ============================================
- * NUEVA SECCIÓN: PAGO
- * ============================================
- */
-#pago {
-    background-color: #f4fce3;
-}
-#pago h2 {
-    font-size: 2.5em;
-    color: #4a753a;
-    margin-bottom: 30px;
-    text-align: center;
-}
-#payment-form {
-    max-width: 600px;
-    margin: 0 auto;
-}
-.form-group {
-    margin-bottom: 20px;
-}
-.form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-    color: #444;
-}
-.form-group input[type="text"],
-.form-group input[type="email"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
-    box-sizing: border-box; /* Asegura que el padding no rompa el ancho */
-}
-#payment-form .cta-button {
-    width: 100%;
-    border: none;
-    cursor: pointer;
 }
 
 
@@ -323,20 +229,23 @@ section {
  */
 #contacto {
     text-align: center;
-    background-color: #f4fce3;
+    background-color: #f4fce3; 
     border-top: 3px solid #6a994e;
     padding: 40px 20px;
 }
+
 #contacto h2 {
     font-size: 2.5em;
     color: #4a753a;
     margin-top: 0;
     margin-bottom: 15px;
 }
+
 #contacto p {
     font-size: 1.1em;
     margin-bottom: 25px;
 }
+
 .cta-button {
     display: inline-block;
     background-color: #4a753a;
@@ -347,23 +256,16 @@ section {
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.2s ease-in-out, transform 0.2s;
+    border: none;
+    cursor: pointer;
 }
+
 .cta-button:hover {
-    background-color: #385c2c;
+    background-color: #385c2c; 
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-
-footer {
-    background-color: #4a753a;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-    margin-top: 40px;
-    font-size: 0.9em;
-    box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
-}
 
 /*
 =====================================================
@@ -470,6 +372,221 @@ footer {
     transform: rotate(180deg);
 }
 
+
+/* =====================================================
+ NUEVOS ESTILOS: CARRITO Y MODALES
+=====================================================
+*/
+
+/* --- Botón del Carrito en Header --- */
+.cart-toggle-btn {
+    position: fixed;
+    top: 25px;
+    right: 30px;
+    background-color: white;
+    border: 1px solid #6a994e;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5em;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+#cart-counter {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #c0392b;
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 0.7em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    display: none; /* Oculto por defecto */
+}
+
+/* --- Sidebar del Carrito --- */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 100vh;
+    background-color: white;
+    z-index: 1003;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.cart-sidebar.is-open {
+    transform: translateX(0);
+}
+.cart-sidebar h2 {
+    font-size: 1.8em;
+    color: #4a753a;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.cart-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 2em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+}
+#cart-items-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+#cart-empty-msg {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding-top: 20px;
+}
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5px;
+    border-bottom: 1px dashed #ddd;
+}
+.cart-item span:first-child { font-weight: bold; }
+.cart-item:last-child { border-bottom: none; }
+#cart-total {
+    text-align: right;
+    padding-top: 20px;
+}
+#cart-total h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin: 0 0 15px 0;
+}
+#cart-total .cta-button {
+    width: 100%;
+}
+
+
+/* --- Modal de Pago --- */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1003;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Estado inicial para animación */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s;
+}
+.modal.is-open {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+}
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 2em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+}
+.modal-content h2 {
+    font-size: 1.8em;
+    color: #4a753a;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.modal-content p {
+    text-align: center;
+    margin-bottom: 20px;
+    font-style: italic;
+    color: #555;
+}
+
+/* --- Fondo Oscuro (Backdrop) --- */
+.modal-backdrop {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1002;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.modal-backdrop.is-open {
+    display: block;
+    opacity: 1;
+}
+
+/* --- Formulario --- */
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #444;
+}
+.form-group input[type="text"],
+.form-group input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+#payment-form .cta-button {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+
 /*
 =====================================================
   MEDIA QUERIES
@@ -496,6 +613,10 @@ footer {
     .content {
         padding-top: 0;
     }
+    .cart-toggle-btn {
+        top: 20px;
+        right: 20px;
+    }
 }
 @media (max-width: 480px) {
     header p {
@@ -507,5 +628,8 @@ footer {
     }
     #productos h2 {
         font-size: 2.0em;
+    }
+    .cart-sidebar {
+        width: 95%; /* Ocupa casi toda la pantalla */
     }
 }
