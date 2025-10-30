@@ -103,6 +103,12 @@ section {
     margin: 0 auto;
 }
 
+/*
+ * ============================================
+ * SECCIÓN DE PRODUCTOS MEJORADA (TARJETAS)
+ * ============================================
+ */
+
 #productos h2 {
     text-align: center;
     font-size: 2.5em;
@@ -110,16 +116,32 @@ section {
     margin-bottom: 40px;
 }
 
+/* NUEVA REGLA: Contenedor de tarjetas */
+.product-container {
+    display: flex;
+    flex-wrap: wrap; /* Esto hace que se apilen en pantallas pequeñas */
+    justify-content: center; /* Centra las tarjetas */
+    gap: 25px; /* El espacio entre las tarjetas */
+}
+
+/* REGLA MODIFICADA: La tarjeta de producto */
 .producto {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-bottom: 30px;
+    
+    margin-bottom: 0; /* 'gap' se encarga de esto ahora */
     padding: 25px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    
+    /* NUEVO: Reglas de Flexbox para la tarjeta */
+    flex-basis: 300px; /* Cada tarjeta intenta medir 300px de ancho */
+    flex-grow: 1;      /* Permite que crezcan para llenar el espacio */
+    max-width: 400px;  /* Límite para que no se estiren demasiado */
+    background-color: #fff; /* Asegura que la tarjeta tenga fondo */
 }
 
 .producto:hover {
@@ -129,9 +151,12 @@ section {
 
 .producto h3 {
     font-size: 1.8em;
-    color: #d35400;
     margin-bottom: 15px;
 }
+/* Los colores de H3 específicos se mantienen */
+.cempasuchil h3 { color: #f39c12; }
+.tomillo h3 { color: #27ae60; }
+.arnica h3 { color: #f1c40f; }
 
 .producto p {
     font-size: 1em;
@@ -139,14 +164,19 @@ section {
     max-width: 600px;
 }
 
+/* REGLA MODIFICADA: Lista de Usos */
 .producto ul {
     list-style: none;
     padding: 0;
-    margin-top: 15px;
+    width: 95%; /* Ocupa el ancho de la tarjeta */
+    
+    /* NUEVO: Empuja esta lista al fondo de la tarjeta */
+    margin-top: auto;
+    padding-top: 20px; /* Un espacio para separar de la descripción */
 }
 
 .producto ul li {
-    background-color: #e6ffe6;
+    background-color: #e6ffe6; 
     margin: 5px 0;
     padding: 8px 15px;
     border-left: 3px solid #6a994e;
@@ -154,6 +184,11 @@ section {
     font-size: 0.95em;
     color: #444;
 }
+/* ============================================
+ * FIN DE LA SECCIÓN DE PRODUCTOS
+ * ============================================
+ */
+
 
 footer {
     background-color: #4a753a;
@@ -165,10 +200,6 @@ footer {
     box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
 }
 
-/* Estilos específicos para cada producto */
-.cempasuchil h3 { color: #f39c12; }
-.tomillo h3 { color: #27ae60; }
-.arnica h3 { color: #f1c40f; }
 
 /*
 =====================================================
@@ -255,23 +286,17 @@ footer {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* * ============================================
- * CAMBIOS PARA EL SUBMENÚ DESPLEGABLE
- * ============================================
- */
+/* --- Estilos del Submenú --- */
 .submenu {
     margin-top: 10px;
     padding-left: 20px !important; 
-    
-    /* 1. Ocultamos el submenú por defecto */
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-out; /* 2. Añadimos animación */
+    transition: max-height 0.3s ease-out; 
 }
 
-/* 3. Clase 'is-open' que se añade con JS para mostrar el submenú */
 .submenu-parent.is-open .submenu {
-    max-height: 200px; /* Suficiente para 3-4 items */
+    max-height: 200px; 
 }
 
 .submenu a {
@@ -290,13 +315,11 @@ footer {
     content: '▼';
     font-size: 0.7em;
     margin-right: 10px;
-    /* 4. Añadimos animación a la flecha */
     transition: transform 0.3s ease-out;
 }
 
-/* 5. Rotamos la flecha cuando el submenú está abierto */
 .submenu-parent.is-open > a::after {
-    transform: rotate(180deg); /* La flecha apunta hacia arriba */
+    transform: rotate(180deg);
 }
 
 
