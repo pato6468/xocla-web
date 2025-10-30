@@ -105,7 +105,7 @@ section {
 
 /*
  * ============================================
- * SECCIÓN DE PRODUCTOS CON NUEVO ORDEN
+ * SECCIÓN DE PRODUCTOS
  * ============================================
  */
 
@@ -123,7 +123,6 @@ section {
     gap: 25px;
 }
 
-/* REGLA MODIFICADA: La tarjeta de producto */
 .producto {
     display: flex;
     flex-direction: column;
@@ -137,7 +136,7 @@ section {
     max-width: 400px;  
     background-color: #fff;
     padding: 0; 
-    overflow: hidden; /* Mantiene los bordes redondeados para la imagen */
+    overflow: hidden; 
 }
 
 .producto:hover {
@@ -145,38 +144,34 @@ section {
     box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
-/* CAMBIO: El título ahora tiene padding superior */
 .producto h3 {
     font-size: 1.8em;
-    padding: 25px 25px 0 25px; /* Padding arriba, izq. y der. */
+    padding: 25px 25px 0 25px; 
     margin-top: 0;
-    margin-bottom: 15px; /* Espacio entre título e imagen */
+    margin-bottom: 15px; 
 }
 .cempasuchil h3 { color: #f39c12; }
 .tomillo h3 { color: #27ae60; }
 .arnica h3 { color: #f1c40f; }
 
-/* REGLA MODIFICADA: La imagen ya no necesita márgenes */
 .product-image {
     width: 100%;
     height: 200px; 
     object-fit: cover; 
 }
 
-/* CAMBIO: El párrafo ahora necesita un margin-top */
 .producto p {
     font-size: 1em;
     color: #555;
     max-width: 600px;
     padding: 0 25px;
-    margin-top: 20px; /* Espacio entre imagen y párrafo */
+    margin-top: 20px; 
 }
 
-/* REGLA MODIFICADA: Lista de Usos (se mantiene igual) */
 .producto ul {
     list-style: none;
     width: auto; 
-    margin-top: auto; /* Empuja esta lista al fondo */
+    margin-top: auto; 
     padding-top: 20px; 
     padding-left: 25px;
     padding-right: 25px;
@@ -192,11 +187,84 @@ section {
     font-size: 0.95em;
     color: #444;
 }
-/* ============================================
- * FIN DE LA SECCIÓN DE PRODUCTOS
+
+/* * ============================================
+ * NUEVA SECCIÓN: FICHAS TÉCNICAS
  * ============================================
  */
+#fichas {
+    background-color: #fdfdfd; /* Un fondo muy limpio */
+    border-top: 3px solid #6a994e; /* Una separación más fuerte */
+}
 
+#fichas h2 {
+    text-align: center;
+    font-size: 2.5em;
+    color: #4a753a;
+    margin-bottom: 40px;
+}
+
+.fichas-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Espacio entre cada ficha */
+}
+
+.ficha-tecnica {
+    padding: 25px 30px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    /* Esto es clave para que los enlaces del menú funcionen bien */
+    scroll-margin-top: 100px; 
+}
+
+.ficha-tecnica h3 {
+    font-size: 2.0em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+/* Asignar colores a juego con los productos */
+#ficha-cempasuchil h3 { color: #f39c12; }
+#ficha-tomillo h3 { color: #27ae60; }
+#ficha-arnica h3 { color: #f1c40f; }
+
+.ficha-tecnica h4 {
+    font-size: 1.2em;
+    color: #333;
+    font-weight: 700;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.ficha-tecnica p, .ficha-tecnica ul {
+    font-size: 1em;
+    color: #555;
+    margin-top: 0;
+    line-height: 1.7;
+}
+
+.ficha-tecnica ul {
+    list-style-type: disc;
+    padding-left: 30px;
+}
+
+/* Estilo especial para el párrafo de precaución */
+.ficha-tecnica .precaucion {
+    font-style: italic;
+    color: #b3362a; /* Un color de advertencia rojo oscuro */
+    border-left: 4px solid #c0392b;
+    padding: 10px 15px;
+    background-color: #fff8f8;
+    border-radius: 4px;
+}
+/* ============================================
+ * FIN DE FICHAS TÉCNICAS
+ * ============================================
+ */
 
 footer {
     background-color: #4a753a;
