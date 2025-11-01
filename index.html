@@ -118,7 +118,6 @@
         <p>&copy; 2025 Proyecto Escolar: Herbolaria Mexicana. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- 🧾 MODAL DE PAGO -->
     <div id="cart-sidebar" class="cart-sidebar">
         <button id="cart-close-btn" class="cart-close-btn" aria-label="Cerrar carrito">&times;</button>
         <h2>🛒 Carrito de Compras</h2>
@@ -137,7 +136,6 @@
             <button id="modal-close-btn" class="modal-close-btn" aria-label="Cerrar pago">&times;</button>
             <h2>💳 Realizar Pago</h2>
 
-            <!-- 🔹 Texto de instrucciones que se ocultará tras el pago -->
             <p id="payment-instructions">Por favor, ingrese sus datos para completar la compra.</p>
 
             <form id="payment-form">
@@ -243,6 +241,10 @@
 
             // 2. Actualizar la UI del carrito
             function updateCartUI() {
+                // --- ✨ ESTA ES LA LÍNEA CORREGIDA ✨ ---
+                cartCheckoutError.style.display = 'none'; 
+                // -------------------------------------
+
                 cartItemsContainer.innerHTML = '';
                 if (cart.length === 0) {
                     cartItemsContainer.appendChild(cartEmptyMsg.cloneNode(true));
