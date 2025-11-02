@@ -131,6 +131,28 @@
         </div>
     </div>
 
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <button id="login-modal-close-btn" class="modal-close-btn" aria-label="Cerrar inicio de sesión">&times;</button>
+            <h2>🔑 Iniciar Sesión</h2>
+            <p>Necesitas iniciar sesión para continuar con tu compra.</p>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Correo Electrónico:</label>
+                    <input type="email" id="login-email" name="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Contraseña:</label>
+                    <input type="password" id="login-password" name="login-password" required>
+                </div>
+                <p id="login-error-message" class="error-message">Usuario o contraseña incorrectos.</p>
+                <button type="submit" class="cta-button">Iniciar Sesión</button>
+            </form>
+            <p style="font-size: 0.8em; text-align: center; margin-top: 15px;">(Usuario: <strong>usuario@correo.com</strong>, Pass: <strong>1234</strong>)</p>
+        </div>
+    </div>
+
     <div id="payment-modal" class="modal">
         <div class="modal-content">
             <button id="modal-close-btn" class="modal-close-btn" aria-label="Cerrar pago">&times;</button>
@@ -181,8 +203,13 @@
             /* ==============================================
              SCRIPT: LÓGICA DEL CARRITO
             ============================================== */
+            
+            // --- NUEVA VARIABLE DE ESTADO ---
+            let isLoggedIn = false; 
+            
             let cart = [];
 
+            // --- Elementos del Carrito ---
             const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
             const cartToggleBtn = document.getElementById('cart-toggle-btn');
             const cartCounter = document.getElementById('cart-counter');
@@ -192,36 +219,65 @@
             const cartTotalElement = document.getElementById('cart-total-price');
             const cartEmptyMsg = document.getElementById('cart-empty-msg');
             const checkoutBtn = document.getElementById('checkout-btn');
-
+            const cartCheckoutError = document.getElementById('cart-checkout-error');
+            
+            // --- Elementos del Modal de Pago ---
             const paymentModal = document.getElementById('payment-modal');
             const modalCloseBtn = document.getElementById('modal-close-btn');
             const paymentForm = document.getElementById('payment-form');
             const paymentInstructions = document.getElementById('payment-instructions');
-            const backdrop = document.getElementById('modal-backdrop');
-
             const successMessage = document.getElementById('success-message');
-            const cartCheckoutError = document.getElementById('cart-checkout-error');
+            const cardError = document.getElementById('card-error');
+            
+            // --- NUEVOS Elementos del Modal de Login ---
+            const loginModal = document.getElementById('login-modal');
+            const loginModalCloseBtn = document.getElementById('login-modal-close-btn');
+            const loginForm = document.getElementById('login-form');
+            const loginErrorMsg = document.getElementById('login-error-message');
+
+            const backdrop = document.getElementById('modal-backdrop');
 
             // --- Funciones de Modales ---
             function openCart() { cartSidebar.classList.add('is-open'); backdrop.classList.add('is-open'); }
             function closeCart() { cartSidebar.classList.remove('is-open'); backdrop.classList.remove('is-open'); }
+            
             function openPaymentModal() { paymentModal.classList.add('is-open'); backdrop.classList.add('is-open'); }
             function closePaymentModal() { paymentModal.classList.remove('is-open'); backdrop.classList.remove('is-open'); successMessage.style.display = 'none'; }
+            
+            // --- NUEVAS Funciones de Modal de Login ---
+            function openLoginModal() { loginModal.classList.add('is-open'); backdrop.classList.add('is-open'); }
+            function closeLoginModal() { loginModal.classList.remove('is-open'); backdrop.classList.remove('is-open'); loginErrorMsg.style.display = 'none'; }
 
             // --- Eventos de Carrito y Modales ---
             cartToggleBtn.addEventListener('click', openCart);
             cartCloseBtn.addEventListener('click', closeCart);
             modalCloseBtn.addEventListener('click', closePaymentModal);
-            backdrop.addEventListener('click', () => { closeCart(); closePaymentModal(); });
+            loginModalCloseBtn.addEventListener('click', closeLoginModal); // <-- NUEVO
+            
+            // Backdrop cierra cualquier modal abierto
+            backdrop.addEventListener('click', () => { 
+                closeCart(); 
+                closePaymentModal();
+                closeLoginModal(); // <-- NUEVO
+            });
 
+            // --- LÓGICA DE CHECKOUT MODIFICADA ---
             checkoutBtn.addEventListener('click', () => {
                 cartCheckoutError.style.display = 'none';
                 if (cart.length === 0) {
                     cartCheckoutError.style.display = 'block';
                     return;
                 }
+
+                // Cierra el carrito
                 closeCart();
-                openPaymentModal();
+
+                // Comprueba si el usuario ha iniciado sesión
+                if (isLoggedIn) {
+                    openPaymentModal(); // Si SÍ, abre el modal de pago
+                } else {
+                    openLoginModal(); // Si NO, abre el modal de login
+                }
             });
 
             // 1. Añadir items al carrito
@@ -241,10 +297,7 @@
 
             // 2. Actualizar la UI del carrito
             function updateCartUI() {
-                // --- ✨ ESTA ES LA LÍNEA CORREGIDA ✨ ---
                 cartCheckoutError.style.display = 'none'; 
-                // -------------------------------------
-
                 cartItemsContainer.innerHTML = '';
                 if (cart.length === 0) {
                     cartItemsContainer.appendChild(cartEmptyMsg.cloneNode(true));
@@ -266,13 +319,37 @@
                 }
             }
 
-            // 3. Formulario de Pago
+            // --- 3. NUEVO: Formulario de Login Simulado ---
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                loginErrorMsg.style.display = 'none';
+                
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+
+                // --- SIMULACIÓN DE LOGIN ---
+                // Aquí es donde comprobarías con un backend.
+                // Por ahora, usamos un usuario y contraseña fijos.
+                if (email === 'usuario@correo.com' && password === '1234') {
+                    // ¡Éxito!
+                    isLoggedIn = true;
+                    closeLoginModal();
+                    openPaymentModal(); // Abre el pago DESPUÉS de iniciar sesión
+                    loginForm.reset();
+                } else {
+                    // Error
+                    isLoggedIn = false;
+                    loginErrorMsg.style.display = 'block';
+                }
+            });
+
+
+            // 4. Formulario de Pago
             paymentForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 if (cart.length === 0) return;
 
                 const cardInput = document.getElementById('card');
-                const cardError = document.getElementById('card-error');
                 const cardNumber = cardInput.value.replace(/\s/g, '');
 
                 cardError.style.display = 'none';
@@ -282,18 +359,17 @@
                     return;
                 }
                 
-                // 🔹 Oculta el texto de instrucciones y el formulario
                 paymentInstructions.style.display = 'none';
                 paymentForm.style.display = 'none';
                 successMessage.style.display = 'block';
 
                 setTimeout(() => {
-                    // 🔹 Restaura el estado original
                     successMessage.style.display = 'none';
                     paymentInstructions.style.display = 'block';
                     paymentForm.style.display = 'block';
                     paymentForm.reset();
                     cart = [];
+                    isLoggedIn = false; // <-- CERRAMOS SESIÓN después de la compra
                     updateCartUI();
                     closePaymentModal();
                     window.scrollTo(0, 0);
