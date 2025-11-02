@@ -549,6 +549,20 @@ section {
     font-size: 1.1em;
     font-weight: bold;
 }
+
+/* --- ESTILOS AÑADIDOS PARA EL FOOTER --- */
+footer {
+    background-color: #6a994e; /* El color verde del header */
+    color: white;             /* Color de texto blanco para contraste */
+    text-align: center;       /* Centra el texto */
+    padding: 20px 0;          /* Añade espacio vertical */
+}
+
+footer p {
+    margin: 0; /* Quita margen por defecto del párrafo */
+}
+/* -------------------------------------- */
+
 @media (max-width: 768px) {
     .menu-toggle {
         display: flex;
