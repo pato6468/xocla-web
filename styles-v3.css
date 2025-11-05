@@ -223,6 +223,10 @@ section {
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
+.cta-button-small {
+    font-size: 0.8em;
+    padding: 8px 12px;
+}
 .menu-toggle {
     display: none;
     position: fixed;
@@ -322,10 +326,31 @@ section {
 .submenu-parent.is-open > a::after {
     transform: rotate(180deg);
 }
-.cart-toggle-btn {
+.header-controls {
     position: fixed;
     top: 25px;
     right: 30px;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+#user-status {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+#user-status span {
+    font-weight: bold;
+}
+.cart-toggle-btn {
+    position: static;
     background-color: white;
     border: 1px solid #6a994e;
     border-radius: 50%;
@@ -333,11 +358,11 @@ section {
     height: 50px;
     font-size: 1.5em;
     cursor: pointer;
-    z-index: 1001;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    position: relative;
 }
 #cart-counter {
     position: absolute;
@@ -406,13 +431,30 @@ section {
     padding-top: 20px;
 }
 .cart-item {
-    display: flex;
-    justify-content: space-between;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
     padding: 10px 5px;
     border-bottom: 1px dashed #ddd;
 }
-.cart-item span:first-child { font-weight: bold; }
+.cart-item span:first-child { 
+    font-weight: bold;
+    margin-right: 10px;
+}
 .cart-item:last-child { border-bottom: none; }
+.cart-item-remove-btn {
+    background: none;
+    border: none;
+    color: #c0392b;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 5px;
+    transition: transform 0.2s;
+}
+.cart-item-remove-btn:hover {
+    transform: scale(1.2);
+}
 #cart-total {
     text-align: right;
     padding-top: 20px;
@@ -522,15 +564,16 @@ section {
     font-size: 1em;
     box-sizing: border-box;
 }
-/* Esta es la regla del color rojo */
 .error-message {
-    display: none; 
-    color: #c0392b; /* Rojo de error */
+    display: block;
+    color: #c0392b; /* <-- ¡Este es un color ROJO! */
     font-size: 0.9em;
     font-weight: bold;
     margin-top: 8px;
+    min-height: 1.2em;
+    text-align: center;
+    margin-bottom: 15px;
 }
-/* Esta es la regla que añadiste, que también funciona */
 #card-error {
     color: red !important;
 }
@@ -538,6 +581,11 @@ section {
     width: 100%;
     border: none;
     cursor: pointer;
+}
+#email-form .cta-button,
+#login-form .cta-button,
+#register-form .cta-button {
+    width: 100%;
 }
 .success-message {
     display: none; 
@@ -550,30 +598,15 @@ section {
     font-size: 1.1em;
     font-weight: bold;
 }
-
-/* --- ESTILO AÑADIDO PARA EL MODAL DE LOGIN --- */
-#login-error-message {
-    display: none;
-    color: #c0392b; /* Rojo de error */
-    font-size: 0.9em;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 15px; /* Espacio antes del botón */
-}
-/* ------------------------------------------- */
-
-/* --- ESTILOS AÑADIDOS PARA EL FOOTER --- */
 footer {
-    background-color: #6a994e; /* El color verde del header */
-    color: white;             /* Color de texto blanco para contraste */
-    text-align: center;       /* Centra el texto */
-    padding: 20px 0;          /* Añade espacio vertical */
+    background-color: #6a994e;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
 }
-
 footer p {
-    margin: 0; /* Quita margen por defecto del párrafo */
+    margin: 0;
 }
-/* -------------------------------------- */
 
 @media (max-width: 768px) {
     .menu-toggle {
@@ -582,7 +615,7 @@ footer p {
     header {
         height: auto;
         padding: 20px 0;
-        padding-top: 80px; 
+        padding-top: 100px;
     }
     .logo {
         width: 160px; 
@@ -596,9 +629,15 @@ footer p {
     .content {
         padding-top: 0;
     }
-    .cart-toggle-btn {
+    .header-controls {
         top: 20px;
         right: 20px;
+        flex-direction: column-reverse;
+        align-items: flex-end;
+    }
+    #user-status {
+        font-size: 0.8em;
+        padding: 8px 10px;
     }
 }
 @media (max-width: 480px) {
@@ -616,3 +655,48 @@ footer p {
         width: 95%; 
     }
 }
+
+/* ===== ESTILOS PARA EL BOTÓN DE GOOGLE Y EL DIVISOR 'O' ===== */
+/* Este es el código que faltaba y que centra la 'O' */
+.auth-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #888;
+    margin: 20px 0;
+}
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+.auth-divider span {
+    padding: 0 10px;
+    font-size: 0.9em;
+}
+
+/* Estos son los estilos para el botón de Google */
+.google-btn {
+    /* Cambiamos el fondo a blanco y el texto a oscuro */
+    background-color: #ffffff !important; 
+    color: #444 !important; 
+    border: 1px solid #ccc !important;
+    width: 100%;
+    
+    /* Esto alinea el logo y el texto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+.google-btn:hover {
+    background-color: #f9f9f9 !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.google-btn img {
+    width: 20px;
+    height: 20px;
+}
+/* ======================================================= */

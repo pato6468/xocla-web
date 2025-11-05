@@ -6,6 +6,8 @@
     <title>XOCTLA - Herbolaria Tradicional Mexicana</title>
 
     <meta name="google-site-verification" content="EqF-lN907LJ2eiSVnIGIih9EcOzTIqytxvuHms1lU8w" />
+    <meta name="google-site-verification" content="yRZhDg4ICgpwndYshhYygB3DTkjXG9hHQEht5_hx_0k" />
+    <meta name="google-site-verification" content="2oNevHyT61320yoW7usvgp0Ps8b39B-W2KliNohIMCI" />
 
     <link rel="stylesheet" href="styles-v3.css">
 </head>
@@ -40,11 +42,24 @@
             <p>Rescatando La Tradición Herbolaria Mexicana</p>
         </div>
 
-        <button id="cart-toggle-btn" class="cart-toggle-btn" aria-label="Abrir carrito">
-            🛒
-            <span id="cart-counter">0</span>
-        </button>
-    </header>
+        <div class="header-controls">
+            
+            <div id="auth-links">
+                <button id="show-login-btn" class="cta-button cta-button-small">Iniciar Sesión</button>
+                <button id="show-register-btn" class="cta-button cta-button-small">Crear Cuenta</button>
+            </div>
+            
+            <div id="user-status" style="display: none;">
+                <span id="user-email"></span>
+                <button id="logout-btn" class="cta-button cta-button-small">Cerrar Sesión</button>
+            </div>
+            
+            <button id="cart-toggle-btn" class="cart-toggle-btn" aria-label="Abrir carrito">
+                🛒
+                <span id="cart-counter">0</span>
+            </button>
+        </div>
+        </header>
 
     <div class="content">
         <main>
@@ -55,13 +70,10 @@
 
             <section id="productos">
                 <h2>Nuestros Productos</h2>
-
                 <div class="product-container">
-
                     <article class="producto cempasuchil" data-id="1" data-nombre="Aceite de Cempasúchil" data-precio="120">
                         <h3>🌼 Aceite de Cempasúchil</h3>
                         <img src="https://via.placeholder.com/400x250.png?text=Cempasúchil" alt="Aceite de Cempasúchil" class="product-image">
-
                         <div class="product-info-wrapper">
                             <p class="product-price">$120.00 MXN</p>
                             <p>El Cempasúchil, la Flor de Muertos... (etc.)</p>
@@ -76,7 +88,6 @@
                     <article class="producto tomillo" data-id="2" data-nombre="Pomada de Tomillo" data-precio="100">
                         <h3>🍃 Pomada de Tomillo</h3>
                         <img src="https://via.placeholder.com/400x250.png?text=Tomillo" alt="Pomada de Tomillo" class="product-image">
-
                         <div class="product-info-wrapper">
                             <p class="product-price">$100.00 MXN</p>
                             <p>El Tomillo (**Thymus vulgaris**) ha sido utilizado ancestralmente... (etc.)</p>
@@ -91,7 +102,6 @@
                     <article class="producto arnica" data-id="3" data-nombre="Pomada de Árnica" data-precio="110">
                         <h3>🟡 Pomada de Árnica</h3>
                         <img src="https://via.placeholder.com/400x250.png?text=Árnica" alt="Pomada de Árnica" class="product-image">
-
                         <div class="product-info-wrapper">
                             <p class="product-price">$110.00 MXN</p>
                             <p>La Árnica es el clásico remedio del botiquín... (etc.)</p>
@@ -102,7 +112,6 @@
                         </div>
                         <button class="add-to-cart-btn">Agregar al Carrito</button>
                     </article>
-
                 </div>
             </section>
 
@@ -131,35 +140,64 @@
         </div>
     </div>
 
-    <div id="login-modal" class="modal">
+    <div id="auth-modal" class="modal">
         <div class="modal-content">
-            <button id="login-modal-close-btn" class="modal-close-btn" aria-label="Cerrar inicio de sesión">&times;</button>
-            <h2>🔑 Iniciar Sesión</h2>
-            <p>Necesitas iniciar sesión para continuar con tu compra.</p>
+            <button id="auth-modal-close-btn" class="modal-close-btn" aria-label="Cerrar">&times;</button>
+            
+            <div id="auth-step-login" class="auth-step">
+                <h2>Iniciar Sesión</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Correo Electrónico:</label>
+                        <input type="email" id="login-email" name="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Contraseña:</label>
+                        <input type="password" id="login-password" name="login-password" required>
+                    </div>
+                    <p id="login-error" class="error-message"></p>
+                    <button type="submit" class="cta-button">Iniciar Sesión</button>
+                    
+                    <div class="auth-divider">
+                        <span>O</span>
+                    </div>
+                    <button type="button" id="google-login-btn" class="cta-button google-btn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Logo de Google">
+                        <span>Iniciar sesión con Google</span>
+                    </button>
+                </form>
+            </div>
 
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="login-email">Correo Electrónico:</label>
-                    <input type="email" id="login-email" name="login-email" required>
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Contraseña:</label>
-                    <input type="password" id="login-password" name="login-password" required>
-                </div>
-                <p id="login-error-message" class="error-message">Usuario o contraseña incorrectos.</p>
-                <button type="submit" class="cta-button">Iniciar Sesión</button>
-            </form>
-            <p style="font-size: 0.8em; text-align: center; margin-top: 15px;">(Usuario: <strong>usuario@correo.com</strong>, Pass: <strong>1234</strong>)</p>
+            <div id="auth-step-register" class="auth-step" style="display: none;">
+                <h2>Crear Cuenta</h2>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-email">Correo Electrónico:</label>
+                        <input type="email" id="register-email" name="register-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Crea una contraseña:</label>
+                        <input type="password" id="register-password" name="register-password" required>
+                    </div>
+                    <p id="register-error" class="error-message"></p>
+                    <button type="submit" class="cta-button">Crear Cuenta</button>
+
+                    <div class="auth-divider">
+                        <span>O</span>
+                    </div>
+                    <button type="button" id="google-register-btn" class="cta-button google-btn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Logo de Google">
+                        <span>Continuar con Google</span>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
-
     <div id="payment-modal" class="modal">
         <div class="modal-content">
-            <button id="modal-close-btn" class="modal-close-btn" aria-label="Cerrar pago">&times;</button>
+            <button id="payment-modal-close-btn" class="modal-close-btn" aria-label="Cerrar pago">&times;</button>
             <h2>💳 Realizar Pago</h2>
-
             <p id="payment-instructions">Por favor, ingrese sus datos para completar la compra.</p>
-
             <form id="payment-form">
                 <div class="form-group">
                     <label for="name">Nombre Completo:</label>
@@ -177,21 +215,22 @@
                 </div>
                 <button type="submit" class="cta-button">Pagar</button>
             </form>
-
             <div id="success-message" class="success-message">
                 ✅ ¡Pago exitoso! Gracias por tu compra.
             </div>
-
         </div>
     </div>
 
     <div id="modal-backdrop" class="modal-backdrop"></div>
 
 
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- CÓDIGO DEL MENÚ ---
+            // --- CÓDIGO DEL MENÚ (Sin cambios) ---
             const menuToggle = document.querySelector('.menu-toggle');
             const nav = document.querySelector('.main-nav');
             menuToggle.addEventListener('click', () => { nav.classList.toggle('is-open'); menuToggle.classList.toggle('is-open'); });
@@ -200,16 +239,65 @@
             submenuParents.forEach(parent => { parent.addEventListener('click', (e) => { e.preventDefault(); parent.parentElement.classList.toggle('is-open'); }); });
             document.addEventListener('click', (e) => { const isMenuOpen = nav.classList.contains('is-open'); const clickedInsideNav = nav.contains(e.target); const clickedOnToggle = menuToggle.contains(e.target); if (isMenuOpen && !clickedInsideNav && !clickedOnToggle) { nav.classList.remove('is-open'); menuToggle.classList.remove('is-open'); } });
 
+            
             /* ==============================================
-             SCRIPT: LÓGICA DEL CARRITO
+             ETAPA 4.1: CONFIGURACIÓN DE FIREBASE
+            ============================================== */
+
+            const firebaseConfig = {
+              apiKey: "AIzaSyDzsClI9HyOdM3Ufjp3xxYfVqus8FhDDto",
+              authDomain: "tienda-xoctla-oficial.firebaseapp.com",
+              projectId: "tienda-xoctla-oficial",
+              storageBucket: "tienda-xoctla-oficial.firebasestorage.app",
+              messagingSenderId: "760119415755",
+              appId: "1:760119415755:web:4fdc2c8e35a97bb8be1c4e",
+              measurementId: "G-DHFKCTNX4E"
+            };
+            firebase.initializeApp(firebaseConfig);
+            const auth = firebase.auth();
+            const googleProvider = new firebase.auth.GoogleAuthProvider(); // <-- PROVEEDOR DE GOOGLE
+            let currentUser = null;
+            let isCheckingOut = false;
+            
+            
+            /* ==============================================
+             ETAPA 4.2: LÓGICA DE AUTENTICACIÓN (MODIFICADA)
             ============================================== */
             
-            // --- NUEVA VARIABLE DE ESTADO ---
-            let isLoggedIn = false; 
-            
-            let cart = [];
+            // --- Elementos del DOM (Autenticación) ---
+            const authLinks = document.getElementById('auth-links');
+            const showLoginBtn = document.getElementById('show-login-btn');
+            const showRegisterBtn = document.getElementById('show-register-btn');
 
-            // --- Elementos del Carrito ---
+            const userStatusDiv = document.getElementById('user-status');
+            const userEmailSpan = document.getElementById('user-email');
+            const logoutBtn = document.getElementById('logout-btn');
+            
+            // Modales
+            const authModal = document.getElementById('auth-modal');
+            const authModalCloseBtn = document.getElementById('auth-modal-close-btn');
+            const paymentModal = document.getElementById('payment-modal');
+            const paymentModalCloseBtn = document.getElementById('payment-modal-close-btn');
+            const backdrop = document.getElementById('modal-backdrop'); // <-- FONDO GRIS
+
+            // Formularios de Autenticación
+            const authStepLogin = document.getElementById('auth-step-login');
+            const loginForm = document.getElementById('login-form');
+            const googleLoginBtn = document.getElementById('google-login-btn'); // <-- Botón Google Login
+            const loginEmailInput = document.getElementById('login-email');
+            const loginPasswordInput = document.getElementById('login-password');
+            const loginError = document.getElementById('login-error');
+
+            const authStepRegister = document.getElementById('auth-step-register');
+            const registerForm = document.getElementById('register-form');
+            const googleRegisterBtn = document.getElementById('google-register-btn'); // <-- Botón Google Register
+            const registerEmailInput = document.getElementById('register-email');
+            const registerPasswordInput = document.getElementById('register-password');
+            const registerError = document.getElementById('register-error');
+
+
+            // --- Elementos del DOM (Carrito y Pago) ---
+            let cart = []; 
             const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
             const cartToggleBtn = document.getElementById('cart-toggle-btn');
             const cartCounter = document.getElementById('cart-counter');
@@ -220,82 +308,192 @@
             const cartEmptyMsg = document.getElementById('cart-empty-msg');
             const checkoutBtn = document.getElementById('checkout-btn');
             const cartCheckoutError = document.getElementById('cart-checkout-error');
-            
-            // --- Elementos del Modal de Pago ---
-            const paymentModal = document.getElementById('payment-modal');
-            const modalCloseBtn = document.getElementById('modal-close-btn');
+
+            // Formulario de Pago
             const paymentForm = document.getElementById('payment-form');
             const paymentInstructions = document.getElementById('payment-instructions');
+            const paymentEmailInput = document.getElementById('email');
             const successMessage = document.getElementById('success-message');
             const cardError = document.getElementById('card-error');
+
+            // --- Funciones de Modales (Generales) ---
+            function openModal(modal) { modal.classList.add('is-open'); backdrop.classList.add('is-open'); }
+            function closeModal(modal) { modal.classList.remove('is-open'); backdrop.classList.remove('is-open'); }
+
+            function closeAllModals() {
+                closeModal(cartSidebar);
+                closeModal(authModal);
+                closeModal(paymentModal);
+            }
             
-            // --- NUEVOS Elementos del Modal de Login ---
-            const loginModal = document.getElementById('login-modal');
-            const loginModalCloseBtn = document.getElementById('login-modal-close-btn');
-            const loginForm = document.getElementById('login-form');
-            const loginErrorMsg = document.getElementById('login-error-message');
-
-            const backdrop = document.getElementById('modal-backdrop');
-
-            // --- Funciones de Modales ---
-            function openCart() { cartSidebar.classList.add('is-open'); backdrop.classList.add('is-open'); }
-            function closeCart() { cartSidebar.classList.remove('is-open'); backdrop.classList.remove('is-open'); }
-            
-            function openPaymentModal() { paymentModal.classList.add('is-open'); backdrop.classList.add('is-open'); }
-            function closePaymentModal() { paymentModal.classList.remove('is-open'); backdrop.classList.remove('is-open'); successMessage.style.display = 'none'; }
-            
-            // --- NUEVAS Funciones de Modal de Login ---
-            function openLoginModal() { loginModal.classList.add('is-open'); backdrop.classList.add('is-open'); }
-            function closeLoginModal() { loginModal.classList.remove('is-open'); backdrop.classList.remove('is-open'); loginErrorMsg.style.display = 'none'; }
-
-            // --- Eventos de Carrito y Modales ---
-            cartToggleBtn.addEventListener('click', openCart);
-            cartCloseBtn.addEventListener('click', closeCart);
-            modalCloseBtn.addEventListener('click', closePaymentModal);
-            loginModalCloseBtn.addEventListener('click', closeLoginModal); // <-- NUEVO
-            
-            // Backdrop cierra cualquier modal abierto
-            backdrop.addEventListener('click', () => { 
-                closeCart(); 
-                closePaymentModal();
-                closeLoginModal(); // <-- NUEVO
-            });
-
-            // --- LÓGICA DE CHECKOUT MODIFICADA ---
-            checkoutBtn.addEventListener('click', () => {
-                cartCheckoutError.style.display = 'none';
-                if (cart.length === 0) {
-                    cartCheckoutError.style.display = 'block';
-                    return;
-                }
-
-                // Cierra el carrito
-                closeCart();
-
-                // Comprueba si el usuario ha iniciado sesión
-                if (isLoggedIn) {
-                    openPaymentModal(); // Si SÍ, abre el modal de pago
+            function showAuthStep(stepToShow) {
+                if (stepToShow === 'login') {
+                    authStepLogin.style.display = 'block';
+                    authStepRegister.style.display = 'none';
                 } else {
-                    openLoginModal(); // Si NO, abre el modal de login
+                    authStepLogin.style.display = 'none';
+                    authStepRegister.style.display = 'block';
+                }
+            }
+
+            // --- Eventos de Cierre de Modales ---
+            cartCloseBtn.addEventListener('click', () => closeModal(cartSidebar));
+            authModalCloseBtn.addEventListener('click', () => closeModal(authModal));
+            paymentModalCloseBtn.addEventListener('click', () => closeModal(paymentModal));
+            
+            // ----- ESTA ES LA LÍNEA QUE HACE LO QUE PIDES -----
+            backdrop.addEventListener('click', closeAllModals);
+            // ----------------------------------------------------
+
+
+            // --- Observador de Estado de Autenticación (MODIFICADO) ---
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    currentUser = user;
+                    userEmailSpan.textContent = `Hola, ${user.email}`;
+                    userStatusDiv.style.display = 'block';
+                    authLinks.style.display = 'none';
+                    paymentEmailInput.value = user.email;
+
+                } else {
+                    currentUser = null;
+                    userStatusDiv.style.display = 'none';
+                    authLinks.style.display = 'block';
+                    paymentEmailInput.value = '';
                 }
             });
 
-            // 1. Añadir items al carrito
+            // --- Listeners para botones del Header ---
+            showLoginBtn.addEventListener('click', () => {
+                isCheckingOut = false;
+                showAuthStep('login');
+                openModal(authModal);
+            });
+
+            showRegisterBtn.addEventListener('click', () => {
+                isCheckingOut = false;
+                showAuthStep('register');
+                openModal(authModal);
+            });
+
+
+            // --- Flujo de Autenticación (MODIFICADO) ---
+
+            // 1. Botón "Iniciar Sesión" (Formulario)
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = loginEmailInput.value;
+                const password = loginPasswordInput.value;
+                loginError.textContent = '';
+
+                auth.signInWithEmailAndPassword(email, password)
+                    .then(userCredential => {
+                        console.log("Usuario inició sesión:", userCredential.user.email);
+                        loginForm.reset();
+                        closeModal(authModal);
+                        
+                        if (isCheckingOut) {
+                            isCheckingOut = false;
+                            openModal(paymentModal);
+                        }
+                    })
+                    .catch(error => {
+                        loginError.textContent = "Correo o contraseña incorrecta.";
+                    });
+            });
+
+            // 2. Botón "Crear Cuenta" (Formulario)
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = registerEmailInput.value;
+                const password = registerPasswordInput.value;
+                registerError.textContent = '';
+
+                auth.createUserWithEmailAndPassword(email, password)
+                    .then(userCredential => {
+                        console.log("Usuario creado:", userCredential.user.email);
+                        registerForm.reset();
+                        closeModal(authModal);
+
+                        if (isCheckingOut) {
+                            isCheckingOut = false;
+                            openModal(paymentModal);
+                        }
+                    })
+                    .catch(error => {
+                        if (error.code === 'auth/weak-password') {
+                            registerError.textContent = 'La contraseña debe tener al menos 6 caracteres.';
+                        } else {
+                            registerError.textContent = 'Error al crear la cuenta.';
+                        }
+                    });
+            });
+
+            // --- LÓGICA DE GOOGLE ---
+            // Esta función maneja el clic de AMBOS botones de Google
+            function handleGoogleSignIn() {
+                loginError.textContent = '';
+                registerError.textContent = ''; // Limpia ambos errores
+
+                auth.signInWithPopup(googleProvider)
+                    .then(result => {
+                        console.log("Usuario inició/registró con Google:", result.user.email);
+                        closeModal(authModal);
+                        
+                        if (isCheckingOut) {
+                            isCheckingOut = false;
+                            openModal(paymentModal);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error en signInWithPopup:", error);
+                        const errorMsg = "Error al iniciar con Google. Intenta de nuevo.";
+                        if (error.code === 'auth/popup-closed-by-user') {
+                            loginError.textContent = "Cancelaste el inicio de sesión.";
+                            registerError.textContent = "Cancelaste el inicio de sesión.";
+                        } else {
+                            loginError.textContent = errorMsg;
+                            registerError.textContent = errorMsg;
+                        }
+                    });
+            }
+
+            googleLoginBtn.addEventListener('click', handleGoogleSignIn);
+            googleRegisterBtn.addEventListener('click', handleGoogleSignIn);
+
+
+            // 3. Botón "Cerrar Sesión"
+            logoutBtn.addEventListener('click', () => {
+                auth.signOut().then(() => {
+                    console.log("Usuario cerró sesión");
+                    cart = [];
+                    updateCartUI();
+                });
+            });
+
+
+            /* ==============================================
+             ETAPA 4.3: LÓGICA DE CARRITO Y PAGO
+            ============================================== */
+
+            // --- Lógica de Carrito (Sin cambios) ---
+            cartToggleBtn.addEventListener('click', () => openModal(cartSidebar));
+            
             addToCartButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const productCard = button.closest('.producto');
                     const product = {
                         id: productCard.dataset.id,
                         nombre: productCard.dataset.nombre,
-                        precio: parseFloat(productCard.dataset.precio)
+                        precio: parseFloat(productCard.dataset.precio),
+                        cartId: Date.now() + Math.random() 
                     };
                     cart.push(product);
                     updateCartUI();
-                    openCart();
+                    openModal(cartSidebar);
                 });
             });
-
-            // 2. Actualizar la UI del carrito
+            
             function updateCartUI() {
                 cartCheckoutError.style.display = 'none'; 
                 cartItemsContainer.innerHTML = '';
@@ -309,7 +507,10 @@
                     cart.forEach(item => {
                         const cartItem = document.createElement('div');
                         cartItem.className = 'cart-item';
-                        cartItem.innerHTML = `<span>${item.nombre}</span><span>$${item.precio.toFixed(2)}</span>`;
+                        cartItem.innerHTML = `
+                            <span>${item.nombre} ($${item.precio.toFixed(2)})</span>
+                            <button class="cart-item-remove-btn" data-cart-id="${item.cartId}">&times;</button>
+                        `;
                         cartItemsContainer.appendChild(cartItem);
                         total += item.precio;
                     });
@@ -318,40 +519,42 @@
                     cartCounter.style.display = 'block';
                 }
             }
+            
+            cartItemsContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('cart-item-remove-btn')) {
+                    const idToRemove = parseFloat(e.target.dataset.cartId);
+                    cart = cart.filter(item => item.cartId !== idToRemove);
+                    updateCartUI();
+                }
+            });
+            
+            // --- LÓGICA DE CHECKOUT (¡MODIFICADA!) ---
+            checkoutBtn.addEventListener('click', () => {
+                cartCheckoutError.style.display = 'none';
+                if (cart.length === 0) {
+                    cartCheckoutError.style.display = 'block';
+                    return;
+                }
 
-            // --- 3. NUEVO: Formulario de Login Simulado ---
-            loginForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                loginErrorMsg.style.display = 'none';
+                closeModal(cartSidebar);
                 
-                const email = document.getElementById('login-email').value;
-                const password = document.getElementById('login-password').value;
-
-                // --- SIMULACIÓN DE LOGIN ---
-                // Aquí es donde comprobarías con un backend.
-                // Por ahora, usamos un usuario y contraseña fijos.
-                if (email === 'usuario@correo.com' && password === '1234') {
-                    // ¡Éxito!
-                    isLoggedIn = true;
-                    closeLoginModal();
-                    openPaymentModal(); // Abre el pago DESPUÉS de iniciar sesión
-                    loginForm.reset();
+                if (auth.currentUser) {
+                    openModal(paymentModal);
                 } else {
-                    // Error
-                    isLoggedIn = false;
-                    loginErrorMsg.style.display = 'block';
+                    isCheckingOut = true;
+                    showAuthStep('login');
+                    openModal(authModal);
                 }
             });
 
 
-            // 4. Formulario de Pago
+            // --- Lógica de Pago (MODIFICADA) ---
             paymentForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 if (cart.length === 0) return;
 
                 const cardInput = document.getElementById('card');
                 const cardNumber = cardInput.value.replace(/\s/g, '');
-
                 cardError.style.display = 'none';
 
                 if (cardNumber.length !== 16 || isNaN(cardNumber)) {
@@ -369,9 +572,10 @@
                     paymentForm.style.display = 'block';
                     paymentForm.reset();
                     cart = [];
-                    isLoggedIn = false; // <-- CERRAMOS SESIÓN después de la compra
                     updateCartUI();
-                    closePaymentModal();
+                    
+                    closeModal(paymentModal); 
+                    
                     window.scrollTo(0, 0);
                 }, 3000);
             });
